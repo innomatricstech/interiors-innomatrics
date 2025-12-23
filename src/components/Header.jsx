@@ -119,7 +119,7 @@ const Header = () => {
               </div>
               <div>
                 <span className="text-xs opacity-80">Location</span>
-                <p className="font-semibold text-sm md:text-base group-hover:text-blue-200 transition-colors">Bangalore, Karnataka</p>
+                <p className="font-semibold text-sm md:text-base group-hover:text-blue-200 transition-colors">Kalkere, Karnataka</p>
               </div>
             </div>
           </div>
@@ -145,11 +145,11 @@ const Header = () => {
             </div>
             <div className="transition-all duration-500 group-hover:translate-x-1">
               <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text text-transparent">
-                Shree Ayyappan Glass And Plywoods
+                Sri Ayyappan Glass
               </h1>
               <p className="text-sm text-gray-600 flex items-center">
                 <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
-                Premium Glass Solutions Since 1995
+                Premium Glass Solutions Since 2017
               </p>
             </div>
           </div>
