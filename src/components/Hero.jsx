@@ -51,7 +51,7 @@ const Hero = () => {
             w-full h-full object-cover
             brightness-110 contrast-110 saturate-125
             scale-105
-            animate-[zoomSlow_18s_ease-in-out_infinite]
+            animate-[zoomSmooth_25s_ease-in-out_infinite]
           "
         >
           <source src={homeVideo} type="video/mp4" />
@@ -109,14 +109,24 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 🎬 ANIMATION */}
+      {/* 🎬 SMOOTHER ANIMATION */}
       <style>
         {`
-          @keyframes zoomSlow {
-            0% { transform: scale(1.05); }
-            50% { transform: scale(1.12); }
-            100% { transform: scale(1.05); }
+          @keyframes zoomSmooth {
+            0%, 100% { 
+              transform: scale(1.02); 
+            }
+            50% { 
+              transform: scale(1.05); 
+            }
           }
+          
+          /* Alternative even more subtle animation */
+          /* @keyframes zoomSmooth {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+          } */
         `}
       </style>
     </section>
