@@ -1,56 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronUp } from "lucide-react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const ScrollToTopBtn = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const lastVisibility = useRef(false);
-  const ticking = useRef(false);
+const ScrollToTopOnRoute = () => {
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const onScroll = () => {
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          const shouldBeVisible = window.scrollY > 300;
-
-          // 🔥 update state ONLY if value changed
-          if (lastVisibility.current !== shouldBeVisible) {
-            lastVisibility.current = shouldBeVisible;
-            setIsVisible(shouldBeVisible);
-          }
-
-          ticking.current = false;
-        });
-
-        ticking.current = true;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
+      left: 0,
       behavior: "smooth",
     });
-  };
+  }, [pathname]);
 
-  return (
-    <button
-      onClick={scrollToTop}
-      aria-label="Scroll to top"
-      className={`
-        fixed bottom-8 right-8 z-40
-        bg-blue-600 text-white p-3 rounded-full shadow-lg
-        transition-all duration-300 ease-out
-        ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}
-        hover:bg-blue-700
-      `}
-    >
-      <ChevronUp className="h-6 w-6" />
-    </button>
-  );
+  return null;
 };
 
-export default ScrollToTopBtn;
+export default ScrollToTopOnRoute;

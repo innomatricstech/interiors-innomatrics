@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Send, Phone, Mail, MapPin, CheckCircle, Clock, Shield } from 'lucide-react';
+import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+
+
 
 // Import real images
 import gallery1 from "../assets/img/modern-bathroom-with-small-space-contemporary-decor.jpg";
@@ -37,12 +41,16 @@ const ContactForm = () => {
       color: "text-blue-600"
     },
     {
-      icon: <Mail className="w-8 h-8" />,
-      title: "EMAIL",
-      main: "sriayyapanglassandplaywoods@gmail.com , info@sriayyapanglass.com",
-      sub: "Available 24/7",
-      color: "text-blue-600"
-    },
+  icon: <Mail className="w-8 h-8" />,
+  title: "EMAIL",
+  main: [
+    "sriayyapanglassandplaywoods@gmail.com",
+    "info@sriayyapanglass.com"
+  ],
+  sub: "Available 24/7",
+  color: "text-blue-600"
+},
+
      
     {
       icon: <MapPin className="w-8 h-8" />,
@@ -78,21 +86,46 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: ''
-      });
-      setSubmitted(false);
-    }, 5000);
-  };
+  
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  emailjs
+    .send(
+      "service_1w6e7b8",      // ✅ NEW WORKING SERVICE
+      "template_527ixtm",     // ✅ YOUR TEMPLATE
+      {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        year: new Date().getFullYear(),
+      },
+      "rKrHOvAx59tAEL0ed"      // ✅ PUBLIC KEY
+    )
+    .then(
+      () => {
+        setSubmitted(true);
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+
+        setTimeout(() => setSubmitted(false), 5000);
+      },
+      (error) => {
+        console.error("EmailJS Error:", error);
+        alert("❌ Message not sent. Try again.");
+      }
+    );
+};
+
+
 
   return (
     <>
@@ -271,24 +304,51 @@ const ContactForm = () => {
         <div className="py-24 px-4">
           <div className="max-w-[1800px] mx-auto">
             {/* Contact Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-              {contactInfo.map((info, index) => (
-                <div key={index} className="contact-info-card p-10 rounded-2xl text-center">
-                  <div className={`${info.color} mb-6 flex justify-center`}>
-                    {info.icon}
-                  </div>
-                  <p className="contact-info-title text-sm uppercase tracking-wider mb-2 font-medium">
-                    {info.title}
-                  </p>
-                  <p className="contact-info-main text-2xl font-bold mb-1">
-                    {info.main}
-                  </p>
-                  <p className="contact-info-sub text-sm">
-                    {info.sub}
-                  </p>
-                </div>
-              ))}
-            </div>
+          {/* Contact Info Cards */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+  {contactInfo.map((info, index) => (
+    <div
+      key={index}
+      className="contact-info-card p-10 rounded-2xl text-center"
+    >
+      {/* Icon */}
+      <div className={`${info.color} mb-6 flex justify-center`}>
+        {info.icon}
+      </div>
+
+      {/* Title */}
+      <p className="contact-info-title text-sm uppercase tracking-wider mb-2 font-medium">
+        {info.title}
+      </p>
+
+      {/* MAIN CONTENT (STRING / ARRAY SAFE) */}
+   {/* MAIN VALUE */}
+{Array.isArray(info.main) ? (
+  <div className="space-y-2">
+    {info.main.map((value, i) => (
+      <p
+        key={i}
+        className="contact-info-main text-xl font-bold break-words"
+      >
+        {value}
+      </p>
+    ))}
+  </div>
+) : (
+  <p className="contact-info-main text-2xl font-bold mb-1 break-words">
+    {info.main}
+  </p>
+)}
+
+<p className="contact-info-sub text-sm mt-2">
+  {info.sub}
+</p>
+
+    </div>
+  ))}
+</div>
+
+
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
               {/* Contact Form */}
@@ -446,9 +506,14 @@ const ContactForm = () => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="gallery-container aspect-square bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                      <p className="text-blue-600 text-lg font-medium">VIEW MORE</p>
-                    </div>
+                    <Link to="/our-works">
+  <div className="gallery-container aspect-square bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center cursor-pointer hover:scale-105 transition">
+    <p className="text-blue-600 text-lg font-medium">
+      VIEW MORE
+    </p>
+  </div>
+</Link>
+
                   </div>
                 </div>
               </div>

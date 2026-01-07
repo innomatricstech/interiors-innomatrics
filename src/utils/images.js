@@ -1,6 +1,6 @@
 // src/utils/images.js
 
-// Import all your gallery images
+// ===== OLD IMAGES =====
 import gallery1 from "../assets/img/modern-bathroom-with-small-space-contemporary-decor.jpg";
 import gallery2 from "../assets/img/led galss.jpg";
 import gallery3 from "../assets/img/glazing works.jpg";
@@ -14,8 +14,68 @@ import gallery10 from "../assets/img/service frame.jpg";
 import gallery11 from "../assets/img/view-plumber-tool-box-ready-fixing-problems-bathroom.jpg";
 import gallery12 from "../assets/img/90showerportion.jpg";
 
+// ===== LACQUERED GLASS FOLDER =====
+import lacquredglass1 from "../assets/img/lacquredGlass/lacquredglass1.jpeg";
+import lacquredglass2 from "../assets/img/lacquredGlass/lacquredglass2.jpeg";
+import lacquredglass3 from "../assets/img/lacquredGlass/lacquredglass3.jpeg";
+import lacquredglass4 from "../assets/img/lacquredGlass/lacquredglass4.jpeg";
+import lacquredglass5 from "../assets/img/lacquredGlass/lacquredglass5.jpeg";
+// Video file for lacqured glass
+import videolacqured from "../assets/img/lacquredGlass/videolacqured.mp4"; // or .mov, .avi, etc.
+
+// ===== LED MIRROR/GLASS FOLDER =====
+// Based on your table listing
+import ledglass1 from "../assets/img/LedMirror/ledglass1.jpeg";
+import ledglass2 from "../assets/img/LedMirror/ledglass2.jpeg";
+import ledglass3 from "../assets/img/LedMirror/ledglass3.jpeg";
+import ledglass4 from "../assets/img/LedMirror/ledglass4.jpeg";
+import ledglass5 from "../assets/img/LedMirror/ledglass5.jpeg";
+import ledglass6 from "../assets/img/LedMirror/ledglass6.jpeg";
+import ledglass7 from "../assets/img/LedMirror/ledglass7.jpeg";
+import ledglass8 from "../assets/img/LedMirror/ledglass8.jpeg";
+import ledglass9 from "../assets/img/LedMirror/ledglass9.jpeg";
+import ledglass10 from "../assets/img/LedMirror/ledglass10.jpeg";
+import ledglass11 from "../assets/img/LedMirror/ledglass11.jpeg";
+
+// ===== SHOWER FOLDER =====
+import shower1 from "../assets/img/shower/shower1.jpeg";
+import shower2 from "../assets/img/shower/shower2.jpeg";
+import shower3 from "../assets/img/shower/shower3.jpeg";
+// Shower video if exists
+import showervideo from "../assets/img/shower/showervideo.mp4";
+
+// ===== BALCONY FOLDER =====
+import balcony1 from "../assets/img/raineebalcony/baclcony1.jpeg";
+import balcony2 from "../assets/img/raineebalcony/baclcony2.jpeg";
+import balcony3 from "../assets/img/raineebalcony/balcony3.jpeg";
+import balcony4 from "../assets/img/raineebalcony/balcony4.jpeg";
+import balcony5 from "../assets/img/raineebalcony/balcony5.jpeg";
+import balcony6 from "../assets/img/raineebalcony/balcony6.jpeg";
+
+// ===== EXPORT ALL IMAGES AND VIDEOS =====
 export const images = {
-  // For Services.jsx
+  // OLD gallery images
+  gallery1, gallery2, gallery3, gallery4, gallery5, gallery6,
+  gallery7, gallery8, gallery9, gallery10, gallery11, gallery12,
+  
+  // Lacquered Glass images
+  lacquredglass1, lacquredglass2, lacquredglass3, lacquredglass4, lacquredglass5,
+  
+  // LED Glass/Mirror images (from your table)
+  ledglass1, ledglass2, ledglass3, ledglass4, ledglass5,
+  ledglass6, ledglass7, ledglass8, ledglass9, ledglass10, ledglass11,
+  
+  // Shower images
+  shower1, shower2, shower3,
+  
+  // Balcony images
+  balcony1, balcony2, balcony3, balcony4, balcony5, balcony6,
+  
+  // Videos
+  videolacqured,
+  showervideo,
+  
+  // For Services.jsx (mapping old images to service names)
   heroBanner: gallery1,
   featureBanner: gallery3,
   shower90: gallery12,
@@ -27,34 +87,26 @@ export const images = {
   ledMirrors: gallery2,
   framelessShower: gallery4,
   spiderFittings: gallery6,
-  
-  // For Gallery.jsx (all gallery images)
-  gallery1,
-  gallery2,
-  gallery3,
-  gallery4,
-  gallery5,
-  gallery6,
-  gallery7,
-  gallery8,
-  gallery9,
-  gallery10,
-  gallery11,
-  gallery12,
 };
 
-// For Gallery component
-export const galleryItems = [
-  { id: 1, category: 'Residential', image: gallery1, title: 'Modern Bathroom' },
-  { id: 2, category: 'Technology', image: gallery2, title: 'LED Glass' },
-  { id: 3, category: 'Commercial', image: gallery3, title: 'Glazing Works' },
-  { id: 4, category: 'Bathroom', image: gallery4, title: 'Frame Shower' },
-  { id: 5, category: 'Decorative', image: gallery5, title: 'Lacquered Glass' },
-  { id: 6, category: 'Architectural', image: gallery6, title: 'Spider Fittings' },
-  { id: 7, category: 'Commercial', image: gallery7, title: 'Hotel Interior' },
-  { id: 8, category: 'Residential', image: gallery8, title: 'Dining Area' },
-  { id: 9, category: 'Bathroom', image: gallery9, title: 'Bathroom Design' },
-  { id: 10, category: 'Technology', image: gallery10, title: 'Service Frame' },
-  { id: 11, category: 'Technology', image: gallery11, title: 'Plumbing Setup' },
-  { id: 12, category: 'Bathroom', image: gallery12, title: '90° Shower' },
-];
+// Optional: Export arrays by category for easier access
+export const imageCategories = {
+  oldGallery: [
+    gallery1, gallery2, gallery3, gallery4, gallery5, gallery6,
+    gallery7, gallery8, gallery9, gallery10, gallery11, gallery12
+  ],
+  
+  lacqueredGlass: [
+    lacquredglass1, lacquredglass2, lacquredglass3, lacquredglass4, lacquredglass5
+  ],
+  
+  ledGlass: [
+    ledglass1, ledglass2, ledglass3, ledglass4, ledglass5,
+    ledglass6, ledglass7, ledglass8, ledglass9, ledglass10, ledglass11
+  ],
+  
+  shower: [shower1, shower2, shower3],
+  balcony: [balcony1, balcony2, balcony3, balcony4, balcony5, balcony6],
+  
+  videos: [videolacqured, showervideo]
+};

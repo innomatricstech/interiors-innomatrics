@@ -1,11 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Added Link import
+import { Link } from 'react-router-dom';
+import { ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
 import logo from "../assets/img/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   
+  const servicesDropdown = [
+    { name: 'SS Railing Glass for Balcony', href: '/services?id=3' },
+    { name: 'Lacquered Glass', href: '/services?id=6' },
+    { name: 'PVC & UPVC Doors', href: '/services?id=2' },
+    { name: 'UPVC Windows Price', href: '/services?id=2' },
+    { name: 'Glass Shop Near Me', href: '/services?id=2' },
+    { name: 'Glass Shower Doors Installation', href: '/services?id=1' },
+    { name: 'Glass Shower Enclosures', href: '/services?id=1' },
+    { name: 'Toughened Glass', href: '/services?id=5' },
+    { name: 'Interior Design House', href: '/services?id=6' },
+    { name: 'Glass Installation', href: '/services?id=2' },
+    { name: 'Glass Shop', href: '/services?id=2' },
+    { name: 'Shower Doors', href: '/services?id=1' },
+    { name: 'Aluminium Glass Partition', href: '/services?id=3' },
+    { name: 'Glass Partition with Door', href: '/services?id=8' },
+    { name: 'SS Railings', href: '/services?id=3' },
+    { name: 'Glass Partition Company', href: '/services?id=8' },
+    { name: 'Glass Partition Price & Cost', href: '/services?id=8' },
+    { name: 'Glass Partition', href: '/services?id=8' },
+    { name: 'Wall Glass Partition', href: '/services?id=8' },
+    { name: 'LED Smart Mirrors', href: '/services?id=4' },
+    { name: 'Spider Glass Facade', href: '/services?id=5' },
+    { name: 'Hotel & Restaurant Glass', href: '/services?id=7' },
+    { name: 'Bathroom Glass Solutions', href: '/services?id=8' },
+    { name: 'Commercial Glass Works', href: '/services?id=9' }
+  ];
+
   const navItems = [
     { name: 'Home', href: '/', icon: '' },
     { name: 'About', href: '/about', icon: '' },
@@ -13,18 +42,9 @@ const Header = () => {
       name: 'Services', 
       href: '/services', 
       icon: '',
-      dropdown: [
-        { name: '90° Shower Partition', href: '/services?id=1' },
-        { name: 'Frameless Shower Partitions', href: '/services?id=8' },
-        { name: 'UPVC Windows & Glazing', href: '/services?id=2' },
-        { name: 'Glass Railings & Balcony', href: '/services?id=3' },
-        { name: 'Toughened Glass Dealer', href: '/services?id=4' },
-        { name: 'Glass & Mirrors Wholesale', href: '/services?id=5' },
-        { name: 'Lacquered Glass', href: '/services?id=6' },
-        { name: 'LED Mirrors', href: '/services?id=7' },
-        { name: 'Spider Fittings Glass', href: '/services?id=9' }
-      ]
+      dropdown: servicesDropdown
     },
+    { name: 'Our Works', href: '/our-works', icon: '' },
     { name: 'Gallery', href: '/gallery', icon: '' },
     { name: 'Contact', href: '/contact', icon: '' },
   ];
@@ -54,14 +74,16 @@ const Header = () => {
 
   return (
     <header className={`sticky top-0 z-50 ${isScrolled ? 'shadow-lg' : ''}`}>
-      <div className="bg-gradient-to-r from-blue-900/90 via-blue-800/90 to-amber-700/90 text-white py-4 px-7 backdrop-blur-sm ">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-6 text-sm">
+      {/* Top Contact Bar */}
+      <div className="bg-gradient-to-r from-blue-900/90 via-blue-800/90 to-amber-700/90 text-white py-3 px-4 md:px-7 backdrop-blur-sm">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
+          <div className="flex items-center gap-4 md:gap-6 text-xs md:text-sm w-full md:w-auto justify-between md:justify-start">
             <div className="flex items-center gap-2">
               <span className="font-bold">+91 91416 21820</span>
-              <span className="font-bold">+91 94810 16006</span>
+              <span className="hidden md:inline font-bold">•</span>
+              <span className="hidden md:inline font-bold">+91 94810 16006</span>
             </div>
-            <span className="hidden md:inline font-medium">info@ayyapanglass.com</span>
+            <span className="font-medium text-xs md:text-sm">info@ayyapanglass.com</span>
           </div>
           <div className="hidden md:flex space-x-2">
             {socialLinks.map((s) => (
@@ -73,34 +95,54 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Main Navigation */}
       <div className="backdrop-blur-xl bg-white/95 border-b border-gray-200">
-        <div className="container mx-auto px-4 flex items-center justify-between py-4">
-          <div className="flex items-center space-x-3">
-            <img src={logo} alt="Logo" className="h-16 w-auto" />
-            <div className="hidden sm:block leading-tight">
-              <h1 className="text-xl font-black bg-gradient-to-r from-blue-900 to-amber-600 bg-clip-text text-transparent uppercase">Sri Ayyappan Glass</h1>
-              <p className="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Premium Glass Solutions</p>
-            </div>
-          </div>
+        <div className="container mx-auto px-4 flex items-center justify-between py-3 md:py-4">
+          {/* Logo - பெரிதாக்கப்பட்டது */}
+          <div className="flex items-center space-x-3 md:space-x-4">
+  <img 
+    src={logo} 
+    alt="Sri Ayyappan Glass Logo" 
+    className="
+      h-[70px]  
+      w-[175px]
+      object-cover
+      -ml-[60px]
+      mt-[10px]
+    "
+  />
+  
+  <div className="hidden sm:block leading-tight">
+    <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-blue-900 to-amber-600 bg-clip-text text-transparent uppercase">
+      Sri Ayyappan Glass
+    </h1>
+    <p className="text-[10px] md:text-xs text-gray-500 font-bold tracking-widest uppercase">
+      Premium Glass Solutions
+    </p>
+  </div>
+</div>
 
+
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
-                {/* Main Link used Link instead of <a> */}
-                <Link to={item.href} className="px-4 py-2 text-sm font-bold text-gray-800 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wider">
+                <Link 
+                  to={item.href} 
+                  className="px-3 md:px-4 py-2 text-xs md:text-sm font-bold text-gray-800 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wider transition-colors"
+                >
                   {item.name}
-                  {item.dropdown && <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>}
+                  {item.dropdown && <ChevronDown className="w-3 h-3 md:w-4 md:h-4" />}
                 </Link>
                 
                 {item.dropdown && (
-                  <div className="absolute left-0 top-full mt-1 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                    <div className="bg-white rounded-xl shadow-2xl border border-gray-100 p-2 overflow-hidden">
+                  <div className="absolute left-0 top-full mt-1 w-64 md:w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-2xl z-50">
+                    <div className="bg-white rounded-xl border border-gray-100 p-2 overflow-hidden max-h-[60vh] overflow-y-auto">
                       {item.dropdown.map((sub) => (
-                        /* Dropdown items also used Link */
                         <Link 
-                            key={sub.name} 
-                            to={sub.href} 
-                            className="block px-4 py-3 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors uppercase"
+                          key={sub.name} 
+                          to={sub.href} 
+                          className="block px-3 md:px-4 py-2 md:py-3 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors uppercase border-b border-gray-100 last:border-0"
                         >
                           {sub.name}
                         </Link>
@@ -110,21 +152,99 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <Link to="/contact" className="ml-4 bg-gradient-to-r from-blue-900 to-amber-600 text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-900/20">Get Quote</Link>
+            <Link 
+              to="/contact" 
+              className="ml-2 md:ml-4 bg-gradient-to-r from-blue-900 to-amber-600 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-900/20 hover:shadow-xl transition-shadow"
+            >
+              Get Quote
+            </Link>
           </nav>
 
-          <button className="lg:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <div className="w-6 h-0.5 bg-blue-900 mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-blue-900 mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-blue-900"></div>
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden p-2 text-blue-900"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t p-4 space-y-2">
-            {navItems.map(item => (
-              <Link key={item.name} to={item.href} className="block py-2 text-sm font-bold text-gray-800 uppercase" onClick={() => setIsMenuOpen(false)}>{item.name}</Link>
-            ))}
+          <div className="lg:hidden bg-white border-t">
+            <div className="px-4 py-3 space-y-1">
+              {navItems.map((item) => (
+                <div key={item.name}>
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                        className="w-full flex items-center justify-between py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
+                      >
+                        <span>{item.name}</span>
+                        {mobileDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </button>
+                      
+                      {mobileDropdownOpen && (
+                        <div className="pl-4 pb-2 space-y-1 border-l-2 border-blue-500 ml-2">
+                          {item.dropdown.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              to={sub.href}
+                              className="block py-2 text-xs font-bold text-gray-600 hover:text-blue-700 uppercase"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setMobileDropdownOpen(false);
+                              }}
+                            >
+                              • {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className="block py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
+              
+              {/* Mobile Social Links */}
+              <div className="pt-4 border-t border-gray-200">
+                <div className="flex justify-center space-x-4 mb-4">
+                  {socialLinks.map((s) => (
+                    <a 
+                      key={s.name} 
+                      href={s.href} 
+                      className={`w-10 h-10 rounded-full ${s.color} flex items-center justify-center`}
+                    >
+                      {renderSocialIcon(s.icon)}
+                    </a>
+                  ))}
+                </div>
+                
+                <Link
+                  to="/contact"
+                  className="block w-full bg-gradient-to-r from-blue-900 to-amber-600 text-white text-center py-3 rounded-full text-sm font-black uppercase tracking-widest shadow-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Get Free Quote
+                </Link>
+                
+                {/* Mobile Contact Info */}
+                <div className="mt-4 text-center space-y-1">
+                  <div className="text-sm font-bold text-blue-900">+91 91416 21820</div>
+                  <div className="text-sm font-bold text-blue-900">+91 94810 16006</div>
+                  <div className="text-xs text-gray-600">info@ayyapanglass.com</div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

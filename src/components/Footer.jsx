@@ -35,11 +35,17 @@ const Footer = () => {
             <div className="flex items-start gap-4 mb-6">
               <div className="relative">
                 <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full"></div>
-                <img
-                  src={logo}
-                  alt="Shree Ayyappan Glass"
-                  className="relative h-35 w-30 object-contain drop-shadow-lg"
-                />
+                 <img 
+                    src={logo} 
+                    alt="Sri Ayyappan Glass Logo" 
+                    className="
+                      h-[70px]  
+                      w-[190px]
+                      object-cover
+                      -ml-[60px]
+                      mt-[10px]
+                    "
+                  />
               </div>
               <div>
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">

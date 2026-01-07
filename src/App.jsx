@@ -5,9 +5,12 @@ import Footer from './components/Footer';
 import ScrollToTopBtn from './components/ScrollToTopBtn';
 import Home from './pages/Home';
 import About from './pages/About';
-import ServicesPage from './components/Services';
+import ServicesPage from './components/Services'; // ഇത് തന്നെ ഉപയോഗിക്കുക
 import GalleryPage from './components/Gallery';
 import Contact from './components/ContactForm';
+import FloatingSupport from "./components/FloatingSupport";
+import OurWorks from './pages/OurWorks'; // Add this import
+
 
 function App() {
   return (
@@ -19,11 +22,15 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:id" element={<ServicesPage />} /> {/* ഇത് ചേർക്കുക */}
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/our-works" element={<OurWorks />} /> {/* Add this line */}
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
+        <FloatingSupport />
         <Footer />
+        
         <ScrollToTopBtn />
       </div>
     </Router>
