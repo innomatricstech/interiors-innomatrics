@@ -301,9 +301,20 @@ const Home = () => {
           {/* Hero Content */}
           <div className="relative z-10 h-full flex items-center">
             <div className="px-8 md:px-16 max-w-4xl">
-              <h1 className="text-7xl md:text-9xl font-bold text-white mb-6 leading-tight">
-                SRI AYYAPPAN<br />GLASS
-              </h1>
+             <h1
+  className="
+    text-4xl sm:text-5xl md:text-6xl lg:text-7xl
+    font-semibold
+    tracking-wide
+    text-orange-500
+    mb-4 sm:mb-6
+    leading-snug
+  "
+>
+
+  SRI AYYAPPAN<br />GLASS
+</h1>
+
               <p className="text-2xl md:text-3xl text-white/90 mb-12">
                 PREMIUM GLASS SOLUTIONS SINCE 2017
               </p>

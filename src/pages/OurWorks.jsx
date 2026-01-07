@@ -20,6 +20,13 @@ import {
 } from "lucide-react";
 import { images } from "../utils/images";
 import { servicesData } from "../utils/servicesdata";
+import adarsh from "../assets/img/logos/adarsh-group.png";
+import homelane from "../assets/img/logos/Homelane.png";
+import dsmax from "../assets/img/logos/Ds-Max.png";
+import neo from "../assets/img/logos/neo.jpg";
+import gateway from "../assets/img/logos/hotel.png";
+import eta from "../assets/img/logos/Et-Mall.png";
+
 
 
 const OurWorks = () => {
@@ -27,6 +34,15 @@ const OurWorks = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isFullView, setIsFullView] = useState(false);
+  const clients = [
+  { name: "Adarsh Builders", logo: adarsh },
+  { name: "Homelane Interiors", logo: homelane },
+  { name: "DS Max (Kryshvi Interiors)", logo: dsmax },
+  { name: "Neo Studio", logo: neo },
+  { name: "Gateway Hotel", logo: gateway },
+  { name: "ETA Mall", logo: eta },
+];
+
 
   /* =======================
      CATEGORIES WITH VALID ICONS
@@ -110,6 +126,37 @@ const allImages = useMemo(() => {
           Premium Gallery
         </p>
       </header>
+      {/* CLIENTS / BRANDS SECTION */}
+<section className="max-w-7xl mx-auto px-4 md:px-6 py-16">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-5xl font-black uppercase tracking-wide">
+      Our Works
+    </h2>
+    <p className="text-blue-400 font-semibold tracking-widest mt-2 uppercase text-sm">
+      Trusted By Leading Brands
+    </p>
+  </div>
+
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+    {clients.map((client, index) => (
+      <div
+        key={index}
+        className="group bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center hover:border-blue-500/50 hover:bg-white/10 transition-all duration-300"
+      >
+      <img
+  src={client.logo}
+  alt={client.name}
+  className="h-16 md:h-20 object-contain transition-transform duration-300 group-hover:scale-105"
+/>
+
+        <p className="mt-4 text-xs md:text-sm font-semibold text-gray-300 group-hover:text-white text-center">
+          {client.name}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+
 
       {/* CATEGORIES - Mobile Horizontal Scroll */}
       <div className="sticky top-20 z-30 bg-[#020617]/90 backdrop-blur-md border-b border-white/10 py-4">

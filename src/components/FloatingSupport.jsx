@@ -6,7 +6,7 @@ const FloatingSupport = () => {
   const navigate = useNavigate();
 
   const whatsappNumber = "919876543210"; // 🔴 real number
-  const whatsappMessage = "Hello, I need support";
+  const whatsappMessage = "Thank you for contacting Shree Ayyappan glass and plywoods.";
 
   const openWhatsApp = () => {
     window.open(

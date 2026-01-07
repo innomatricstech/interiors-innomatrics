@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+
 import { ChevronLeft, ChevronRight, Maximize2, Boxes, LayoutGrid, Video } from 'lucide-react';
 import { images } from "../utils/images";
 import { servicesData } from "../utils/servicesdata";
+ 
+
 
 
 const Gallery = () => {
@@ -9,19 +12,30 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullView, setIsFullView] = useState(false);
 
- const galleryItems = servicesData.flatMap(service => {
-  if (!Array.isArray(service.images)) return [];
+ const galleryItems = useMemo(() => {
+  const seen = new Set();
 
-  return service.images.map((img, index) => ({
-    id: `${service.id}-${index}`,
-    image: img,
-    title: service.title,
-    category: service.category,
-    type: typeof img === "string" && img.endsWith(".mp4")
-      ? "video"
-      : "image",
-  }));
-});
+  return servicesData.flatMap(service => {
+    if (!Array.isArray(service.images)) return [];
+
+    return service.images
+      .filter(img => {
+        if (!img || seen.has(img)) return false;
+        seen.add(img);
+        return true;
+      })
+      .map((img) => ({
+        id: img, // 🔥 image path itself is unique
+        image: img,
+        title: service.title,
+        category: service.category,
+        type: typeof img === "string" && img.endsWith(".mp4")
+          ? "video"
+          : "image",
+      }));
+  });
+}, []);
+
 
 
  const categories = [
@@ -58,7 +72,7 @@ const Gallery = () => {
       
       {/* --- HEADER --- */}
       <div className="pt-24 pb-12 px-6 text-center">
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter opacity-10 mb-4 uppercase">Portfolio</h1>
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter opacity-10 mb-4 uppercase text-white">Gallery</h1>
         <div className="flex items-center justify-center gap-4">
            <div className="h-px w-8 bg-blue-500"></div>
            <span className="text-blue-500 font-bold tracking-[0.4em] text-sm uppercase">Signature Gallery</span>

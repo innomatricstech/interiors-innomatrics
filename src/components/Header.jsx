@@ -6,7 +6,8 @@ import logo from "../assets/img/logo.png";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
+
   
   const servicesDropdown = [
     { name: 'SS Railing Glass for Balcony', href: '/services?id=3' },
@@ -84,7 +85,11 @@ const Header = () => {
               <span className="hidden md:inline font-bold">+91 94810 16006</span>
             </div>
             <span className="font-medium text-xs md:text-sm">info@ayyapanglass.com</span>
+            <div> 
+            <span className="font-medium text-xs md:text-sm">sriayyapanglassandplaywoods@gmail.com</span>
           </div>
+          </div>
+          
           <div className="hidden md:flex space-x-2">
             {socialLinks.map((s) => (
               <a key={s.name} href={s.href} className={`w-8 h-8 rounded-full ${s.color} flex items-center justify-center`}>
@@ -107,19 +112,34 @@ const Header = () => {
       h-[70px]  
       w-[175px]
       object-cover
-      -ml-[60px]
+      -ml-[47px]
       mt-[10px]
     "
   />
   
-  <div className="hidden sm:block leading-tight">
-    <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-blue-900 to-amber-600 bg-clip-text text-transparent uppercase">
-      Sri Ayyappan Glass
-    </h1>
-    <p className="text-[10px] md:text-xs text-gray-500 font-bold tracking-widest uppercase">
-      Premium Glass Solutions
-    </p>
-  </div>
+ <div className="leading-tight">
+  <h1 className="
+    text-sm sm:text-xl md:text-2xl
+    font-semibold
+    bg-gradient-to-r from-blue-900 to-amber-600
+    bg-clip-text text-transparent
+    uppercase
+  ">
+    Sri Ayyappan Glass
+  </h1>
+
+  <p className="
+    hidden sm:block
+    text-[9px] md:text-xs
+    text-gray-500
+    font-semibold
+    tracking-widest
+    uppercase
+  ">
+    Premium Glass Solutions
+  </p>
+</div>
+
 </div>
 
 
@@ -173,47 +193,71 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden bg-white border-t">
             <div className="px-4 py-3 space-y-1">
-              {navItems.map((item) => (
-                <div key={item.name}>
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                        className="w-full flex items-center justify-between py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
-                      >
-                        <span>{item.name}</span>
-                        {mobileDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                      </button>
-                      
-                      {mobileDropdownOpen && (
-                        <div className="pl-4 pb-2 space-y-1 border-l-2 border-blue-500 ml-2">
-                          {item.dropdown.map((sub) => (
-                            <Link
-                              key={sub.name}
-                              to={sub.href}
-                              className="block py-2 text-xs font-bold text-gray-600 hover:text-blue-700 uppercase"
-                              onClick={() => {
-                                setIsMenuOpen(false);
-                                setMobileDropdownOpen(false);
-                              }}
-                            >
-                              • {sub.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      className="block py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
+             {navItems.map((item) => (
+  <div key={item.name}>
+    {item.dropdown ? (
+      <>
+        <button
+          onClick={() =>
+            setActiveMobileDropdown(
+              activeMobileDropdown === item.name ? null : item.name
+            )
+          }
+          className="w-full flex items-center justify-between py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
+        >
+          <span>{item.name}</span>
+          {activeMobileDropdown === item.name ? (
+            <ChevronUp size={16} />
+          ) : (
+            <ChevronDown size={16} />
+          )}
+        </button>
+
+        {activeMobileDropdown === item.name && (
+          <div className="
+            pl-4 pr-2 pb-3
+            space-y-1
+            border-l-4 border-blue-700
+            ml-2
+            max-h-[60vh]
+            overflow-y-auto
+          ">
+            {item.dropdown.map((sub) => (
+              <Link
+                key={sub.name}
+                to={sub.href}
+                className="
+                  block py-2 px-2
+                  text-xs font-semibold
+                  text-gray-700
+                  hover:text-blue-700
+                  hover:bg-blue-50
+                  rounded-md
+                  uppercase
+                "
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setActiveMobileDropdown(null);
+                }}
+              >
+                {sub.name}
+              </Link>
+            ))}
+          </div>
+        )}
+      </>
+    ) : (
+      <Link
+        to={item.href}
+        className="block py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        {item.name}
+      </Link>
+    )}
+  </div>
+))}
+
               
               {/* Mobile Social Links */}
               <div className="pt-4 border-t border-gray-200">

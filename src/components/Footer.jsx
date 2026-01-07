@@ -34,18 +34,18 @@ const Footer = () => {
           <div className="lg:col-span-4">
             <div className="flex items-start gap-4 mb-6">
               <div className="relative">
-                <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full"></div>
-                 <img 
-                    src={logo} 
-                    alt="Sri Ayyappan Glass Logo" 
-                    className="
-                      h-[70px]  
-                      w-[190px]
-                      object-cover
-                      -ml-[60px]
-                      mt-[10px]
-                    "
-                  />
+                <div className="absolute inset-0  rounded-full"></div>
+                <img 
+  src={logo} 
+  alt="Sri Ayyappan Glass Logo" 
+  className="
+    h-[250px]
+    w-[250px]
+    object-cover
+    -mt-[80px]
+  "
+/>
+
               </div>
               <div>
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
@@ -125,25 +125,33 @@ const Footer = () => {
               Our Services
               <span className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-gradient-to-r from-blue-500 to-transparent"></span>
             </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                "Commercial Projects", "Designer Glass", "Office Partition",
-                "Innovative Glass", "Lacquered Glass", "Shower Partition",
-                "Glass Railings", "Glass Doors", "Mirror Walls",
-                "Toughened Glass", "Frosted Glass", "Custom Designs"
-              ].map((service, i) => (
-                <div
-                  key={i}
-                  className="group p-2 rounded-lg bg-gray-800/30 hover:bg-gradient-to-r 
-                    hover:from-amber-500/10 hover:to-transparent border border-gray-700/50 
-                    hover:border-amber-500/30 transition-all duration-300 cursor-pointer"
-                >
-                  <span className="text-sm text-gray-300 group-hover:text-amber-400 transition">
-                    {service}
-                  </span>
-                </div>
-              ))}
-            </div>
+           <ul className="space-y-2">
+  {[
+    "Commercial Projects",
+    "Designer Glass",
+    "Office Partition",
+    "Innovative Glass",
+    "Lacquered Glass",
+    "Shower Partition",
+    "Glass Railings",
+    "Glass Doors",
+    "Mirror Walls",
+    "Toughened Glass",
+    "Frosted Glass",
+    "Custom Designs"
+  ].map((service, i) => (
+    <li
+      key={i}
+      className="flex items-center gap-2 text-sm text-gray-300 
+                 hover:text-amber-400 transition cursor-pointer"
+      onClick={() => window.location.href = "/services"}
+    >
+      <span className="text-amber-500">▸</span>
+      {service}
+    </li>
+  ))}
+</ul>
+
           </div>
 
           {/* CONTACT & MAP */}

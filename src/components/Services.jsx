@@ -13,6 +13,10 @@ import { images } from "../utils/images";
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+const [touchStart, setTouchStart] = useState(null);
+const [touchEnd, setTouchEnd] = useState(null);
+
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -399,6 +403,13 @@ const Services = () => {
       setSelectedService(null);
     }
   }, [location.search, services]);
+  useEffect(() => {
+  const checkScreen = () => setIsMobile(window.innerWidth < 768);
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
+
 
   // Video controls
   useEffect(() => {
@@ -452,6 +463,25 @@ const Services = () => {
       });
     }
   };
+  const minSwipeDistance = 50;
+
+const onTouchStart = (e) => {
+  setTouchEnd(null);
+  setTouchStart(e.targetTouches[0].clientX);
+};
+
+const onTouchMove = (e) => {
+  setTouchEnd(e.targetTouches[0].clientX);
+};
+
+const onTouchEnd = () => {
+  if (!touchStart || !touchEnd) return;
+
+  const distance = touchStart - touchEnd;
+  if (distance > minSwipeDistance) nextMedia();
+  if (distance < -minSwipeDistance) prevMedia();
+};
+
 
   // Toggle play/pause for video
   const togglePlayPause = () => {
@@ -499,16 +529,20 @@ const Services = () => {
       </section>
 
       {/* Services Grid - Responsive */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-10">
+      <section className="w-full px-4 md:px-6 py-10 overflow-hidden">
+
        <div
+
   className="
-    grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+    grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3
     gap-4 md:gap-6
     w-full
-    lg:w-[1600px]
-    lg:-ml-[170px]
+    lg:w-[1400px]
+    mx-auto
   "
 >
+
+
 
           {filteredServices.map((service) => (
             <div 
@@ -682,9 +716,16 @@ const Services = () => {
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
+            <div className="flex-1 overflow-hidden flex flex-row">
+
               {/* Left Side - MEDIA VIEWER (Image/Video) */}
-              <div className="flex-1 relative overflow-hidden bg-black">
+              <div
+  className="flex-1 relative overflow-hidden bg-black"
+  onTouchStart={onTouchStart}
+  onTouchMove={onTouchMove}
+  onTouchEnd={onTouchEnd}
+>
+
                 <div className="absolute inset-0 flex items-center justify-center p-2 md:p-4">
                   {currentMedia?.type === 'video' ? (
                     <div className="relative w-full h-full max-w-full max-h-full">
@@ -792,7 +833,8 @@ const Services = () => {
               </div>
 
               {/* Right Side - Content Panel */}
-              <div className="w-full md:w-96 border-t md:border-t-0 md:border-l border-white/10 bg-gradient-to-b from-[#0a0f2b] to-[#020617] overflow-y-auto">
+             <div className="w-[40%] md:w-96 border-l border-white/10 bg-gradient-to-b from-[#0a0f2b] to-[#020617] overflow-y-auto">
+
                 <div className="p-4 md:p-6">
                   <h2 className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-4">
                     {selectedService.title}

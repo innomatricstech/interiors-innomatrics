@@ -71,12 +71,8 @@ const ContactForm = () => {
       icon: <Shield className="w-8 h-8" />,
       title: "FREE CONSULTATION",
       desc: "Get expert advice for free"
-    },
-    {
-      icon: <CheckCircle className="w-8 h-8" />,
-      title: "5-YEAR WARRANTY",
-      desc: "Premium quality guarantee"
     }
+   
   ];
 
   const handleChange = (e) => {
