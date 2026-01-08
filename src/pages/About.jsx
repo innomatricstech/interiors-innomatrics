@@ -47,9 +47,7 @@ const About = () => {
     window.location.href = '/gallery';
   };
 
-  const handleCall = () => {
-    window.location.href = 'tel:+91 91416 21820,+91 94810 16006';
-  };
+   
 
   return (
     <>
@@ -201,13 +199,13 @@ const About = () => {
               </p>
               
               <div className="flex flex-col md:flex-row gap-6">
-                <button 
-                  onClick={handleCall}
-                  className="primary-button px-12 py-5 rounded-full text-xl font-semibold flex items-center justify-center gap-3"
-                >
-                  <Phone className="w-6 h-6" />
-                  CALL: +91 91416 21820 <br /> +91 94810 16006
-                </button>
+               <button 
+  onClick={handleGetConsultation}
+  className="primary-button px-12 py-5 rounded-full text-xl font-semibold flex items-center justify-center gap-3"
+>
+  CONTACT NOW
+</button>
+
                 
                 <button 
                   onClick={handleGetConsultation}
@@ -353,12 +351,13 @@ const About = () => {
             </p>
             
             <div className="flex flex-col md:flex-row gap-6 justify-center">
-              <button 
-                onClick={handleCall}
-                className="primary-button px-12 py-5 rounded-full text-xl font-semibold"
-              >
-                CALL: +91 91416 21820<br/>+91 94810 16006
-              </button>
+             <button 
+  onClick={handleGetConsultation}
+  className="primary-button px-12 py-5 rounded-full text-xl font-semibold"
+>
+  CONTACT NOW
+</button>
+
               
               <button 
                 onClick={handleViewProjects}

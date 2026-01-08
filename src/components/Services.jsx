@@ -24,6 +24,15 @@ const [touchEnd, setTouchEnd] = useState(null);
   const videoRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  
+  const openServiceModal = (service) => {
+  // 🔒 Freeze screen scroll
+  document.body.style.overflow = "hidden";
+
+  // URL update WITHOUT scroll jump
+  navigate(`?id=${service.id}`, { replace: false });
+};
+
 
   // Combine images and videos for each service
   const services = useMemo(() => [
@@ -434,7 +443,7 @@ const [touchEnd, setTouchEnd] = useState(null);
     setIsPlaying(false);
     setSelectedService(null);
     setCurrentMediaIndex(0);
-    navigate("/services", { replace: true });
+    navigate("/services/:id", { replace: true });
   };
 
   // Navigation functions
@@ -689,11 +698,32 @@ const onTouchEnd = () => {
 
       {/* Media Gallery Modal */}
       {selectedService && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-4 backdrop-blur-xl bg-black/95 animate-in fade-in duration-300">
+     <div className="
+  fixed inset-0 z-[100]
+  flex items-center justify-center
+  px-2 md:px-6 py-6
+  bg-transparent
+  backdrop-blur-sm
+  overflow-hidden
+  animate-in fade-in duration-300
+">
+
           {/* Overlay to close */}
           <div className="absolute inset-0" onClick={handleClose}></div>
           
-          <div className="relative z-10 w-full h-[95vh] md:h-[90vh] bg-[#0a0f2b] rounded-xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col">
+          <div
+  className="
+    relative z-10
+    w-full max-w-6xl
+    bg-[#0a0f2b]
+    rounded-xl md:rounded-3xl
+    border border-white/10
+    shadow-2xl
+    flex flex-col
+    max-h-[90vh]
+  "
+>
+
             
             {/* Top Controls Bar */}
             <div className="flex items-center justify-between px-4 md:px-6 py-3 bg-gradient-to-r from-black/80 via-black/60 to-black/80 border-b border-white/10">
@@ -716,17 +746,25 @@ const onTouchEnd = () => {
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 overflow-hidden flex flex-row">
+           <div className="flex flex-col md:flex-row overflow-hidden">
+
 
               {/* Left Side - MEDIA VIEWER (Image/Video) */}
-              <div
-  className="flex-1 relative overflow-hidden bg-black"
+<div
+  className="
+    relative bg-black
+    flex items-center justify-center
+    w-full md:flex-1
+    max-h-[60vh] md:max-h-[70vh]
+  "
   onTouchStart={onTouchStart}
   onTouchMove={onTouchMove}
   onTouchEnd={onTouchEnd}
 >
 
-                <div className="absolute inset-0 flex items-center justify-center p-2 md:p-4">
+
+                <div className="flex items-center justify-center p-2 md:p-4">
+
                   {currentMedia?.type === 'video' ? (
                     <div className="relative w-full h-full max-w-full max-h-full">
                       <video
@@ -833,7 +871,17 @@ const onTouchEnd = () => {
               </div>
 
               {/* Right Side - Content Panel */}
-             <div className="w-[40%] md:w-96 border-l border-white/10 bg-gradient-to-b from-[#0a0f2b] to-[#020617] overflow-y-auto">
+           <div
+  className="
+    w-full md:w-96
+    border-t md:border-t-0 md:border-l
+    border-white/10
+    bg-gradient-to-b from-[#0a0f2b] to-[#020617]
+    overflow-y-auto
+    max-h-[60vh] md:max-h-[70vh]
+  "
+>
+
 
                 <div className="p-4 md:p-6">
                   <h2 className="text-xl md:text-3xl font-black uppercase tracking-tighter mb-4">

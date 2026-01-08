@@ -144,7 +144,7 @@ const Footer = () => {
       key={i}
       className="flex items-center gap-2 text-sm text-gray-300 
                  hover:text-amber-400 transition cursor-pointer"
-      onClick={() => window.location.href = "/services"}
+      onClick={() => window.location.href = "/services/:id"}
     >
       <span className="text-amber-500">▸</span>
       {service}
@@ -242,34 +242,17 @@ const Footer = () => {
         {/* BOTTOM BAR */}
         <div className="pt-6 border-t border-gray-800/50 relative">
           <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-r from-amber-500 to-blue-500 p-0.5 rounded-full">
-              <div className="bg-[#0a0f24] px-4 py-1 rounded-full">
-                <span className="text-xs text-gray-400">✦</span>
-              </div>
-            </div>
+            
           </div>
           
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-gray-400">
               © {new Date().getFullYear()} Shree Ayyappan Glass And Plywoods.
               <span className="text-amber-500/70 ml-2">All rights reserved.</span>
+              <span className="text-amber-500/70 ml-[190px] text-xl">@ Powered by innomatrics Tech</span>
             </div>
             
-            <div className="flex items-center gap-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition">
-                Sitemap
-              </a>
-            </div>
             
-            <div className="text-xs text-gray-500">
-              Crafted with ❤️ for beautiful spaces
-            </div>
           </div>
         </div>
       </div>
