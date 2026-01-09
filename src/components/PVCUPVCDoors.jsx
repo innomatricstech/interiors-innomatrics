@@ -295,29 +295,8 @@ const PVCUPVCDoors = () => {
       </div>
 
       {/* Price Range (Optional) */}
-      <div className="mt-12 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-500/30 rounded-2xl p-6">
-        <h2 className="text-2xl font-black uppercase mb-4 text-center">Price Range</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-black/40 p-4 rounded-xl text-center">
-            <h3 className="font-bold text-lg mb-2">Basic</h3>
-            <div className="text-3xl font-bold text-emerald-400 mb-2">₹1,500/sq.ft</div>
-            <p className="text-sm text-gray-300">Single glazed, standard finish</p>
-          </div>
-          <div className="bg-black/40 p-4 rounded-xl text-center border-2 border-emerald-500">
-            <h3 className="font-bold text-lg mb-2">Standard</h3>
-            <div className="text-3xl font-bold text-emerald-400 mb-2">₹2,200/sq.ft</div>
-            <p className="text-sm text-gray-300">Double glazed, energy efficient</p>
-          </div>
-          <div className="bg-black/40 p-4 rounded-xl text-center">
-            <h3 className="font-bold text-lg mb-2">Premium</h3>
-            <div className="text-3xl font-bold text-emerald-400 mb-2">₹3,000/sq.ft</div>
-            <p className="text-sm text-gray-300">Triple glazed, advanced security</p>
-          </div>
-        </div>
-        <p className="text-center text-gray-400 text-sm mt-4">
-          *Prices vary based on design complexity, glass type, and additional features
-        </p>
-      </div>
+       
+     
     </ServiceLayout>
   );
 };

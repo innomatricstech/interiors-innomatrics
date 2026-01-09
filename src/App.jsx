@@ -38,7 +38,11 @@ import ServicesPage from './components/Services.jsx';
 function App() {
   return (
     <Router>
+      <FloatingSupport />
+      <ScrollToTopBtn />
       <div className="min-h-screen flex flex-col">
+        
+        
         <Header />
         <main className="flex-grow">
           <Routes>
@@ -74,9 +78,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
-        <FloatingSupport />
         <Footer />
-        <ScrollToTopBtn />
+        
       </div>
     </Router>
   );

@@ -55,8 +55,8 @@ const ContactForm = () => {
     {
       icon: <MapPin className="w-8 h-8" />,
       title: "LOCATION",
-      main: "Bangalore",
-      sub: "Karnataka, India",
+      main: "No.25, 2nd Mainroad, Munithiyappa Layout, Horamavu Post, Pooja Garden, Kalkere Village, Bangalore, 560 043, Karnataka, India",
+      
       color: "text-blue-600"
     }
   ];
@@ -336,7 +336,7 @@ const handleSubmit = (e) => {
   </p>
 )}
 
-<p className="contact-info-sub text-sm mt-2">
+<p  className="contact-info-main text-2xl font-bold mb-1 break-words">
   {info.sub}
 </p>
 

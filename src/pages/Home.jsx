@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star, Quote, ChevronLeft, ChevronRight as RightChevron } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star, Quote, ChevronLeft,Calendar, Briefcase, Smile,  ChevronRight as RightChevron } from 'lucide-react';
 
 // Import real images and video
 import homeVideo from "../assets/videos/homevideo.mp4";
@@ -190,29 +190,29 @@ const Home = () => {
     }
   };
 
-  // Scroll to next review
   const scrollNext = () => {
     if (reviewsContainerRef.current) {
       const container = reviewsContainerRef.current;
-      const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+      const cardWidth = 300; // Fixed width for square cards
+      const gap = 24; // gap-6 = 24px
+      const scrollAmount = (cardWidth + gap) * 3; // Scroll 3 cards at a time
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       
       // Update current index
-      const newIndex = Math.min(currentReviewIndex + 1, reviews.length - 1);
-      setCurrentReviewIndex(newIndex);
+      setCurrentReviewIndex(prev => Math.min(prev + 3, reviews.length - 3));
     }
   };
 
-  // Scroll to previous review
   const scrollPrev = () => {
     if (reviewsContainerRef.current) {
       const container = reviewsContainerRef.current;
-      const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+      const cardWidth = 300; // Fixed width for square cards
+      const gap = 24; // gap-6 = 24px
+      const scrollAmount = (cardWidth + gap) * 3; // Scroll 3 cards at a time
       container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       
       // Update current index
-      const newIndex = Math.max(currentReviewIndex - 1, 0);
-      setCurrentReviewIndex(newIndex);
+      setCurrentReviewIndex(prev => Math.max(prev - 3, 0));
     }
   };
 
@@ -223,7 +223,7 @@ const Home = () => {
       interval = setInterval(() => {
         scrollNext();
         // Reset to first if at end
-        if (currentReviewIndex >= reviews.length - 2) {
+        if (currentReviewIndex >= reviews.length - 3) {
           setTimeout(() => {
             if (reviewsContainerRef.current) {
               reviewsContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
@@ -288,8 +288,10 @@ const Home = () => {
           transition: transform 0.25s ease, box-shadow 0.25s ease;
           will-change: transform;
           color: #1e40af;
-          flex: 0 0 auto;
+          flex-shrink: 0;
           scroll-snap-align: start;
+          width: 300px;
+          height: 300px;
         }
 
         .review-card:hover {
@@ -302,6 +304,7 @@ const Home = () => {
           scroll-behavior: smooth;
           scrollbar-width: none; /* Firefox */
           -ms-overflow-style: none; /* IE and Edge */
+          scroll-snap-type: x mandatory;
         }
 
         .reviews-container::-webkit-scrollbar {
@@ -475,6 +478,21 @@ const Home = () => {
           color: #4b5563;
           line-height: 1.6;
         }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+          .review-card {
+            width: 280px;
+            height: 280px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .review-card {
+            width: 260px;
+            height: 260px;
+          }
+        }
       `}</style>
 
       <div className="dark-blue-bg min-h-screen">
@@ -520,13 +538,14 @@ const Home = () => {
               </p>
               
               <div className="flex flex-col md:flex-row gap-6">
-                <button 
-                  onClick={() => window.location.href = "tel:+919141621820"}
-                  className="primary-button px-12 py-5 rounded-full text-xl font-semibold flex items-center justify-center gap-3"
-                >
-                  <Phone className="w-6 h-6" />
-                  CALL: +91 91416 21820
-                </button>
+                <button
+  onClick={() => navigate("/contact")}
+  className="primary-button px-12 py-5 rounded-full text-xl font-semibold flex items-center justify-center gap-3"
+>
+  <Phone className="w-6 h-6" />
+  CONTACT US
+</button>
+
                 <button 
                   onClick={() => navigate('/contact')}
                   className="secondary-button px-12 py-5 rounded-full text-xl font-semibold flex items-center justify-center gap-3"
@@ -645,7 +664,7 @@ const Home = () => {
                         <Mail className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-blue-800 text-xl font-medium">info@sriayyappanGlass.com</p>
+                        <p className="text-blue-800 text-xl font-medium">info@sriayyappanglass.com</p>
                       </div>
                     </div>
                     
@@ -654,8 +673,8 @@ const Home = () => {
                         <MapPin className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-blue-800 text-xl font-medium">Bangalore</p>
-                        <p className="text-blue-600 text-sm">Karnataka, India</p>
+                        <p className="text-blue-800 text-xl font-medium">No.25, 2nd Mainroad, Munithiyappa Layout, Horamavu Post, Pooja Garden, Kalkere Village, Bangalore, 560 043.</p>
+                        <p className="text-blue-800 text-xl font-medium">Karnataka, India</p>
                       </div>
                     </div>
                   </div>
@@ -765,37 +784,88 @@ const Home = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="py-16 px-4">
-          <div className="max-w-[1200px] mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="stats-value text-5xl md:text-6xl font-bold mb-2">9+</div>
-                <div className="stats-label text-lg">YEARS</div>
-              </div>
-              <div className="text-center">
-                <div className="stats-value text-5xl md:text-6xl font-bold mb-2">850+</div>
-                <div className="stats-label text-lg">PROJECTS</div>
-              </div>
-              <div className="text-center">
-                <div className="stats-value text-5xl md:text-6xl font-bold mb-2">99%</div>
-                <div className="stats-label text-lg">SATISFACTION</div>
-              </div>
-              <div className="text-center">
-                <div className="stats-value text-5xl md:text-6xl font-bold mb-2">4.9</div>
-                <div className="stats-label text-lg">RATING</div>
-              </div>
-            </div>
-          </div>
-          {/* Horizontal Scrolling Reviews Section */}
+        
+
+<div className="py-16 px-4 bg-gradient-to-r   to-blue-900">
+
+  <div className="max-w-[1200px] mx-auto">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+      {/* YEARS */}
+      <div className="text-center group">
+        <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-blue-600/20 flex items-center justify-center group-hover:scale-110 transition">
+          <Calendar className="text-blue-400 w-7 h-7" />
+        </div>
+        <div className="stats-value text-5xl md:text-6xl font-bold text-white mb-1">
+          9<span className="text-blue-400">+</span>
+        </div>
+        <div className="stats-label text-sm tracking-widest text-gray-400">
+          YEARS
+        </div>
+      </div>
+
+      {/* PROJECTS */}
+      <div className="text-center group">
+        <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-green-600/20 flex items-center justify-center group-hover:scale-110 transition">
+          <Briefcase className="text-green-400 w-7 h-7" />
+        </div>
+        <div className="stats-value text-5xl md:text-6xl font-bold text-white mb-1">
+          850<span className="text-green-400">+</span>
+        </div>
+        <div className="stats-label text-sm tracking-widest text-gray-400">
+          PROJECTS
+        </div>
+      </div>
+
+      {/* SATISFACTION */}
+      <div className="text-center group">
+        <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-yellow-600/20 flex items-center justify-center group-hover:scale-110 transition">
+          <Smile className="text-yellow-400 w-7 h-7" />
+        </div>
+        <div className="stats-value text-5xl md:text-6xl font-bold text-white mb-1">
+          99<span className="text-yellow-400">%</span>
+        </div>
+        <div className="stats-label text-sm tracking-widest text-gray-400">
+          SATISFACTION
+        </div>
+      </div>
+
+      {/* RATING */}
+      <div className="text-center group">
+        <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-pink-600/20 flex items-center justify-center group-hover:scale-110 transition">
+          <Star className="text-pink-400 w-7 h-7" />
+        </div>
+        <div className="stats-value text-5xl md:text-6xl font-bold text-white mb-1">
+          4.9
+        </div>
+        <div className="stats-label text-sm tracking-widest text-gray-400">
+          RATING
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+        {/* Horizontal Scrolling Reviews Section */}
         <div className="py-24 px-4">
           <div className="max-w-[1600px] mx-auto">
             <h2 className="text-6xl md:text-7xl font-bold text-white mb-4 text-center">
-             Our Testimonials
+              Our Testimonials
             </h2>
             <p className="text-xl text-white/80 text-center mb-12">Hear what our satisfied customers say</p>
             
             {/* Overall Rating Summary */}
-            
+            <div className="flex justify-center items-center gap-4 mb-12">
+              <div className="flex items-center gap-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <div className="text-white text-2xl font-bold">4.9/5.0</div>
+              <div className="text-white/80 text-lg">({reviews.length} reviews)</div>
+            </div>
 
             {/* Horizontal Scrolling Reviews Container */}
             <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -803,45 +873,48 @@ const Home = () => {
               <button 
                 onClick={scrollPrev}
                 disabled={currentReviewIndex === 0}
-                className="scroll-button absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                className="scroll-button absolute left-0 md:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg"
               >
-                <ChevronLeft className="w-6 h-6 text-blue-700" />
+                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-blue-700" />
               </button>
 
               {/* Reviews Horizontal Container */}
               <div 
                 ref={reviewsContainerRef}
-                className="reviews-container flex overflow-x-auto gap-8 pb-8 px-4 scroll-snap-x"
-                style={{ scrollSnapType: 'x mandatory' }}
+                className="reviews-container flex overflow-x-auto gap-6 px-2 md:px-4 pb-6 snap-x snap-mandatory"
+                style={{ 
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none'
+                }}
               >
                 {reviews.map((review) => (
-                  <div 
+                  <div
                     key={review.id}
-                    className="review-card rounded-2xl p-8 min-w-[90vw] md:min-w-[500px] lg:min-w-[500px]"
+                    className="review-card rounded-2xl p-6 flex flex-col justify-between"
                   >
                     {/* Quote Icon */}
-                    <div className="mb-4">
-                      <Quote className="w-10 h-10 text-blue-500 opacity-20" />
+                    <div className="mb-3">
+                      <Quote className="w-8 h-8 md:w-10 md:h-10 text-blue-500 opacity-20" />
                     </div>
                     
                     {/* Rating */}
-                    <div className="mb-4">
+                    <div className="mb-3">
                       {renderStars(review.rating)}
                     </div>
                     
                     {/* Review Text */}
-                    <p className="review-text mb-6 text-lg">
+                    <p className="review-text text-sm md:text-base line-clamp-3 mb-4">
                       {review.text}
                     </p>
                     
                     {/* Client Info */}
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 review-avatar rounded-full text-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 md:w-12 md:h-12 review-avatar rounded-full text-lg md:text-xl font-bold">
                         {review.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <h4 className="review-name text-xl font-bold">{review.name}</h4>
-                        <p className="review-location text-sm">{review.location}</p>
+                        <h4 className="review-name text-base md:text-lg font-bold">{review.name}</h4>
+                        <p className="review-location text-xs md:text-sm">{review.location}</p>
                         <p className="review-location text-xs mt-1">{review.date}</p>
                       </div>
                     </div>
@@ -852,27 +925,27 @@ const Home = () => {
               {/* Right Scroll Button */}
               <button 
                 onClick={scrollNext}
-                disabled={currentReviewIndex >= reviews.length - 2}
-                className="scroll-button absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                disabled={currentReviewIndex >= reviews.length - 3}
+                className="scroll-button absolute right-0 md:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg"
               >
-                <RightChevron className="w-6 h-6 text-blue-700" />
+                <RightChevron className="w-5 h-5 md:w-6 md:h-6 text-blue-700" />
               </button>
             </div>
 
-            {/* Scroll Indicators */}
-            <div className="flex justify-center gap-2 mt-8">
-              {reviews.slice(0, Math.ceil(reviews.length / 2)).map((_, index) => (
+            {/* Scroll Indicators for Desktop */}
+            <div className="hidden md:flex justify-center gap-2 mt-8">
+              {Array.from({ length: Math.ceil(reviews.length / 3) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => {
                     if (reviewsContainerRef.current) {
-                      const scrollAmount = reviewsContainerRef.current.clientWidth * 0.8 * index;
+                      const scrollAmount = (300 + 24) * 3 * index; // 300px width + 24px gap
                       reviewsContainerRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-                      setCurrentReviewIndex(index * 2);
+                      setCurrentReviewIndex(index * 3);
                     }
                   }}
                   className={`indicator-dot w-3 h-3 rounded-full ${
-                    Math.floor(currentReviewIndex / 2) === index 
+                    Math.floor(currentReviewIndex / 3) === index 
                       ? 'bg-blue-500 scale-125' 
                       : 'bg-white/50'
                   }`}
@@ -880,9 +953,15 @@ const Home = () => {
                 />
               ))}
             </div>
-          </div>
-        </div>
 
+            {/* Mobile Scroll Indicator */}
+            <div className="md:hidden flex items-center justify-center gap-2 mt-6">
+              <div className="text-white/70 text-sm">
+                Swipe to see more reviews
+              </div>
+              <RightChevron className="w-4 h-4 text-white/70 animate-pulse" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

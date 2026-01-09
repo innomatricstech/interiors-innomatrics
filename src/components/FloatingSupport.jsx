@@ -1,4 +1,3 @@
-// components/FloatingSupport.jsx
 import React from "react";
 import { FaWhatsapp, FaHeadset } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -6,58 +5,79 @@ import { useNavigate } from "react-router-dom";
 const FloatingSupport = () => {
   const navigate = useNavigate();
 
-  const whatsappNumber = "919876543210"; 
-  const whatsappMessage = "Thank you for contacting Shree Ayyappan glass and plywoods.";
+  const whatsappNumber = "919876543210";
+  const whatsappMessage =
+    "Thank you for contacting Shree Ayyappan Glass and Plywoods.";
 
   const openWhatsApp = () => {
     window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`,
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        whatsappMessage
+      )}`,
       "_blank"
     );
   };
 
   return (
     <div
-      className="
-        fixed 
-        right-4          /* Mobile-la konjam edge-la irukkum */
-        md:right-8       /* Desktop-la konjam thalli irukkum */
-        bottom-[700px]        /* Bottom position fix */
-        z-40             /* Header-ku pinnala poga idhu thaan mukkiyam */
-        flex 
-        flex-col 
-        gap-3            /* Buttons-ku naduvula gap */
-        md:gap-4
-      "
+      style={{
+        position: "fixed",
+        top: "45%",
+        right: "18px",
+        zIndex: 99999,
+        transform: "none",
+        display: "flex",
+        flexDirection: "column",
+        gap: "14px",
+        pointerEvents: "auto",
+      }}
     >
-      {/* WhatsApp Button */}
+      {/* WhatsApp */}
       <button
         onClick={openWhatsApp}
-        className="
-          bg-green-500 hover:bg-green-600 text-white 
-          w-12 h-12        /* Mobile size */
-          md:w-14 md:h-14  /* Desktop size */
-          rounded-full flex items-center justify-center 
-          shadow-lg transition transform hover:scale-110 active:scale-90
-        "
         aria-label="WhatsApp"
+        style={{
+          width: "52px",
+          height: "52px",
+          borderRadius: "50%",
+          backgroundColor: "#25D366",
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "none",
+          cursor: "pointer",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+          transition: "transform 0.2s ease",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       >
-        <FaWhatsapp className="text-xl md:text-2xl" />
+        <FaWhatsapp size={26} />
       </button>
 
-      {/* Helpline Button */}
+      {/* Helpline */}
       <button
         onClick={() => navigate("/contact")}
-        className="
-          bg-blue-600 hover:bg-blue-700 text-white 
-          w-12 h-12        /* Mobile size */
-          md:w-14 md:h-14  /* Desktop size */
-          rounded-full flex items-center justify-center 
-          shadow-lg transition transform hover:scale-110 active:scale-90
-        "
         aria-label="Helpline"
+        style={{
+          width: "52px",
+          height: "52px",
+          borderRadius: "50%",
+          backgroundColor: "#2563EB",
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "none",
+          cursor: "pointer",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+          transition: "transform 0.2s ease",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       >
-        <FaHeadset className="text-xl md:text-2xl" />
+        <FaHeadset size={24} />
       </button>
     </div>
   );

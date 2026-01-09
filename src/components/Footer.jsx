@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import {
   Phone,
   Mail,
@@ -22,6 +23,16 @@ import logo from "../assets/img/logo.png";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+const navigateWithScroll = (path) => {
+  if (location.pathname === path) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    navigate(path);
+  }
+};
+
 
   const quickLinks = [
     { name: "Home", path: "/", icon: Home },
@@ -182,10 +193,10 @@ const Footer = () => {
                   {quickLinks.map(({ name, path, icon: Icon }) => (
                     <li key={name}>
                       <button
-                        onClick={() => navigate(path)}
-                        className="group flex items-center text-gray-300 hover:text-amber-400 
-                          transition-all duration-300 hover:translate-x-2 w-full text-left"
-                      >
+  onClick={() => navigateWithScroll(path)}
+  className="group flex items-center text-gray-300 hover:text-amber-400"
+>
+
                         <Icon className="h-4 w-4 mr-3 opacity-60 group-hover:opacity-100" />
                         <span className="text-sm uppercase tracking-wide">{name}</span>
                         <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 
@@ -207,10 +218,10 @@ const Footer = () => {
                   {services.map(({ name, path }) => (
                     <li key={name}>
                       <button
-                        onClick={() => navigate(path)}
-                        className="group flex items-center text-sm text-gray-300 
-                          hover:text-amber-400 transition-all duration-300 w-full text-left"
-                      >
+  onClick={() => navigateWithScroll(path)}
+  className="group flex items-center text-sm text-gray-300"
+>
+
                         <span className="text-amber-500 mr-2 group-hover:scale-125 transition-transform">›</span>
                         <span className="truncate">{name}</span>
                       </button>
@@ -287,8 +298,8 @@ const Footer = () => {
             </div>
 
             <div className="text-sm text-gray-400 text-center md:text-right">
-              <span className="text-amber-500/70"> Powered by</span>
-              <span className="ml-1 font-medium">Innomatrics Tech</span>
+              
+              <a className="ml-1 font-medium" href="https://www.innomatricstech.com/"><span className="text-amber-500/70"> Powered by</span>Innomatrics Tech</a>
             </div>
           </div>
         </div>

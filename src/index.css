@@ -1,13 +1,20 @@
 @import "tailwindcss";
-/* 🚀 UNIVERSAL ANIMATION PERFORMANCE FIX */
+
+/* 🚀 REMOVE global transform */
 * {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
-/* 🔥 Animate pannra elements ku */
+/* 🔥 Animate pannra elements ku mattum */
 .animate,
 .will-animate {
   will-change: transform, opacity;
+  transform: translateZ(0);   /* ✅ ONLY HERE */
+}
+
+/* 🔐 Viewport safety */
+html,
+body {
+  transform: none !important;
 }
