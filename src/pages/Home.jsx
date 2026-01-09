@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star, Quote, ChevronLeft, ChevronRight as RightChevron } from 'lucide-react';
 
 // Import real images and video
 import homeVideo from "../assets/videos/homevideo.mp4";
@@ -16,7 +16,10 @@ import gallery2 from "../assets/img/dinner-table-cafe.jpg";
 const Home = () => {
   const navigate = useNavigate();
   const videoRef = useRef(null);
+  const reviewsContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [autoScroll, setAutoScroll] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,17 +40,46 @@ const Home = () => {
     'Custom Solutions'
   ];
 
-  // Real Services Images
+  // Services with images and paths
   const servicesWithImages = [
-    { id: 1, title: "SHOWER PARTITIONS", image: shower90 },
-    { id: 2, title: "UPVC WINDOWS", image: upvcWindows },
-    { id: 3, title: "GLASS RAILINGS", image: glassRailings },
-    { id: 4, title: "LACQUERED GLASS", image: lacqueredGlass },
-    { id: 5, title: "LED MIRRORS", image: ledMirrors },
-    { id: 6, title: "TOUGHENED GLASS", image: toughenedGlass }
+    { 
+      id: 1, 
+      title: "SHOWER PARTITIONS", 
+      image: shower90, 
+      path: "/services/shower-enclosures" 
+    },
+    { 
+      id: 2, 
+      title: "UPVC WINDOWS", 
+      image: upvcWindows, 
+      path: "/services/upvc-windows-price" 
+    },
+    { 
+      id: 3, 
+      title: "GLASS RAILINGS", 
+      image: glassRailings, 
+      path: "/services/balcony-railing" 
+    },
+    { 
+      id: 4, 
+      title: "LACQUERED GLASS", 
+      image: lacqueredGlass, 
+      path: "/services/lacquered-glass" 
+    },
+    { 
+      id: 5, 
+      title: "LED MIRRORS", 
+      image: ledMirrors, 
+      path: "/services/led-smart-mirrors" 
+    },
+    { 
+      id: 6, 
+      title: "TOUGHENED GLASS", 
+      image: toughenedGlass, 
+      path: "/services/toughened-glass" 
+    }
   ];
 
-  // Real Gallery Images
   const galleryImages = [
     { id: 1, image: gallery1 },
     { id: 2, image: gallery2 },
@@ -55,6 +87,66 @@ const Home = () => {
     { id: 4, image: upvcWindows },
     { id: 5, image: glassRailings },
     { id: 6, image: lacqueredGlass }
+  ];
+
+  // Reviews/Testimonials data
+  const reviews = [
+    {
+      id: 1,
+      name: "ROHITH VANDANA",
+      location: "Chennai",
+      rating: 5,
+      text: "I had a wonderful experience with Mr. Umeah from DJ Glass interiors, had a great experience for our office partition work with quality material and reasonable price. On time quality work with prompt commitment.",
+      date: "2024-02-15"
+    },
+    {
+      id: 2,
+      name: "GURU NATH",
+      location: "Kerala",
+      rating: 5,
+      text: "We have contacted DJ Glass for shower cubicle. The response was very quick and within 3-4 working days they have finished work. The service which they have given is wonderful. Done perfectly. Highly recommended.",
+      date: "2024-01-20"
+    },
+    {
+      id: 3,
+      name: "MARY DELNA",
+      location: "Andhra Pradesh",
+      rating: 5,
+      text: "The service was good. Within the limited time with best cost they do complete the work as well as Umeah gives the best coordination. - SION Semiconductors Pvt. Ltd.",
+      date: "2024-03-05"
+    },
+    {
+      id: 4,
+      name: "ARUN KUMAR",
+      location: "Bangalore",
+      rating: 5,
+      text: "Excellent workmanship! Installed glass partitions for our corporate office. Professional team, clean work, and completed before deadline. Will definitely work with them again.",
+      date: "2024-02-28"
+    },
+    {
+      id: 5,
+      name: "PRIYA SHARMA",
+      location: "Hyderabad",
+      rating: 5,
+      text: "Got UPVC windows installed for my new home. Quality materials, perfect fitting, and excellent customer service. The team was very professional and responsive throughout.",
+      date: "2024-03-10"
+    },
+    {
+      id: 6,
+      name: "VIJAY KUMAR",
+      location: "Coimbatore",
+      rating: 5,
+      text: "Best glass service in Bangalore! Installed balcony railings and shower cubicles. Quality is top-notch and the team was very professional. On-time delivery.",
+      date: "2024-03-01"
+    },
+    {
+      id: 7,
+      name: "SANDEEP RAO",
+      location: "Mumbai",
+      rating: 5,
+      text: "Outstanding service! The glass railings they installed at my restaurant look magnificent. Great attention to detail and timely completion.",
+      date: "2024-02-25"
+    }
   ];
 
   const handleChange = (e) => {
@@ -98,57 +190,171 @@ const Home = () => {
     }
   };
 
+  // Scroll to next review
+  const scrollNext = () => {
+    if (reviewsContainerRef.current) {
+      const container = reviewsContainerRef.current;
+      const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      
+      // Update current index
+      const newIndex = Math.min(currentReviewIndex + 1, reviews.length - 1);
+      setCurrentReviewIndex(newIndex);
+    }
+  };
+
+  // Scroll to previous review
+  const scrollPrev = () => {
+    if (reviewsContainerRef.current) {
+      const container = reviewsContainerRef.current;
+      const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      
+      // Update current index
+      const newIndex = Math.max(currentReviewIndex - 1, 0);
+      setCurrentReviewIndex(newIndex);
+    }
+  };
+
+  // Auto scroll effect
+  useEffect(() => {
+    let interval;
+    if (autoScroll && reviewsContainerRef.current) {
+      interval = setInterval(() => {
+        scrollNext();
+        // Reset to first if at end
+        if (currentReviewIndex >= reviews.length - 2) {
+          setTimeout(() => {
+            if (reviewsContainerRef.current) {
+              reviewsContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+            }
+            setCurrentReviewIndex(0);
+          }, 1000);
+        }
+      }, 5000); // Auto scroll every 5 seconds
+    }
+    return () => clearInterval(interval);
+  }, [autoScroll, currentReviewIndex]);
+
+  // Pause auto scroll on hover
+  const handleMouseEnter = () => setAutoScroll(false);
+  const handleMouseLeave = () => setAutoScroll(true);
+
+  // Render star rating
+  const renderStars = (rating) => {
+    return (
+      <div className="flex gap-1">
+        {[...Array(5)].map((_, i) => (
+          <Star 
+            key={i} 
+            className={`w-5 h-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="relative overflow-hidden">
+      {/* CSS Styles */}
       <style jsx>{`
-        /* 🏴‍☠️ MAIN BACKGROUND – Dark Blue */
         .dark-blue-bg {
           background: linear-gradient(135deg, 
-            rgba(12, 25, 74, 1) 0%,      /* very dark blue */
-            rgba(15, 30, 90, 1) 50%,     /* dark blue */
-            rgba(20, 40, 110, 1) 100%    /* medium dark blue */
+            rgba(12, 25, 74, 1) 0%,
+            rgba(15, 30, 90, 1) 50%,
+            rgba(20, 40, 110, 1) 100%
           );
         }
 
-        /* ⬜ WHITE CARD */
         .white-card {
           background: white;
-          border: 1px solid #dbeafe; /* blue-100 */
+          border: 1px solid #dbeafe;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
           will-change: transform;
-          color: #1e40af; /* blue-800 */
+          color: #1e40af;
         }
 
         .white-card:hover {
           transform: scale(1.02);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-          border-color: #93c5fd; /* blue-300 */
+          border-color: #93c5fd;
         }
 
-        /* 🎬 VIDEO OVERLAY */
+        .review-card {
+          background: white;
+          border: 1px solid #dbeafe;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          will-change: transform;
+          color: #1e40af;
+          flex: 0 0 auto;
+          scroll-snap-align: start;
+        }
+
+        .review-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+          border-color: #93c5fd;
+        }
+
+        .reviews-container {
+          scroll-behavior: smooth;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .reviews-container::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
+        }
+
+        .scroll-button {
+          background: white;
+          border: 2px solid #3b82f6;
+          transition: all 0.25s ease;
+          opacity: 0.9;
+        }
+
+        .scroll-button:hover {
+          background: #f8fafc;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          opacity: 1;
+        }
+
+        .scroll-button:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+
+        .indicator-dot {
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .indicator-dot:hover {
+          transform: scale(1.2);
+        }
+
         .video-overlay {
           background: linear-gradient(135deg, 
-            rgba(12, 25, 74, 0.8) 0%,     /* dark blue overlay */
+            rgba(12, 25, 74, 0.8) 0%,
             rgba(12, 25, 74, 0.55) 50%,
             rgba(12, 25, 74, 0.35) 100%
           );
         }
 
-        /* 🔘 PRIMARY BUTTON */
         .primary-button {
           background: white;
-          color: #1e40af; /* blue-800 */
-          border: 2px solid #3b82f6; /* blue-500 */
+          color: #1e40af;
+          border: 2px solid #3b82f6;
           transition: all 0.25s ease;
         }
 
         .primary-button:hover {
-          background: #f8fafc; /* blue-50 */
+          background: #f8fafc;
           box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        /* 🔘 SECONDARY BUTTON */
         .secondary-button {
           background: transparent;
           color: white;
@@ -162,7 +368,6 @@ const Home = () => {
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        /* 🎮 VIDEO CONTROL BUTTON */
         .video-control-button {
           background: white;
           border: 2px solid #3b82f6;
@@ -174,7 +379,6 @@ const Home = () => {
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* 📝 FORM CONTAINER */
         .form-container {
           background: white;
           border: 1px solid #dbeafe;
@@ -182,37 +386,35 @@ const Home = () => {
         }
 
         .form-input {
-          background: #f8fafc; /* blue-50 */
-          border: 1px solid #dbeafe; /* blue-100 */
-          color: #1e40af; /* blue-800 */
+          background: #f8fafc;
+          border: 1px solid #dbeafe;
+          color: #1e40af;
           transition: all 0.25s ease;
         }
 
         .form-input:focus {
           background: white;
-          border-color: #60a5fa; /* blue-400 */
+          border-color: #60a5fa;
           outline: none;
           box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
 
         .form-input::placeholder {
-          color: #64748b; /* slate-500 */
+          color: #64748b;
         }
 
-        /* 🔘 FORM SUBMIT BUTTON */
         .form-submit-button {
-          background: #3b82f6; /* blue-500 */
+          background: #3b82f6;
           color: white;
           border: 2px solid #3b82f6;
           transition: all 0.25s ease;
         }
 
         .form-submit-button:hover {
-          background: #2563eb; /* blue-600 */
+          background: #2563eb;
           box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
         }
 
-        /* 📊 STATS SECTION */
         .stats-value {
           color: white;
         }
@@ -221,33 +423,18 @@ const Home = () => {
           color: rgba(255, 255, 255, 0.8);
         }
 
-        /* 📱 FOOTER */
-        .footer-container {
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-main {
-          color: white;
-        }
-
-        .footer-sub {
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* 💼 SERVICE LIST ITEMS */
         .service-item {
-          background: #eff6ff; /* blue-50 */
-          color: #1e40af; /* blue-800 */
-          border: 1px solid #dbeafe; /* blue-100 */
+          background: #eff6ff;
+          color: #1e40af;
+          border: 1px solid #dbeafe;
           transition: all 0.25s ease;
         }
 
         .service-item:hover {
-          background: #dbeafe; /* blue-100 */
-          border-color: #93c5fd; /* blue-300 */
+          background: #dbeafe;
+          border-color: #93c5fd;
         }
 
-        /* 🎯 SUCCESS MESSAGE */
         .success-card {
           background: white;
           border: 1px solid #dbeafe;
@@ -255,15 +442,38 @@ const Home = () => {
         }
 
         .success-icon {
-          color: #10b981; /* emerald-500 */
+          color: #10b981;
         }
 
         .success-title {
-          color: #1e40af; /* blue-800 */
+          color: #1e40af;
         }
 
         .success-text {
-          color: #64748b; /* slate-500 */
+          color: #64748b;
+        }
+
+        .review-avatar {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+          color: white;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .review-name {
+          color: #1e40af;
+          font-weight: bold;
+        }
+
+        .review-location {
+          color: #64748b;
+        }
+
+        .review-text {
+          color: #4b5563;
+          line-height: 1.6;
         }
       `}</style>
 
@@ -301,19 +511,9 @@ const Home = () => {
           {/* Hero Content */}
           <div className="relative z-10 h-full flex items-center">
             <div className="px-8 md:px-16 max-w-4xl">
-             <h1
-  className="
-    text-4xl sm:text-5xl md:text-6xl lg:text-7xl
-    font-semibold
-    tracking-wide
-    text-orange-500
-    mb-4 sm:mb-6
-    leading-snug
-  "
->
-
-  SRI AYYAPPAN<br />GLASS
-</h1>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-wide text-orange-500 mb-4 sm:mb-6 leading-snug">
+                SRI AYYAPPAN<br />GLASS
+              </h1>
 
               <p className="text-2xl md:text-3xl text-white/90 mb-12">
                 PREMIUM GLASS SOLUTIONS SINCE 2017
@@ -339,20 +539,20 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Services Section - White Cards */}
+        {/* Services Section */}
         <div className="py-24 px-4">
           <div className="max-w-[1600px] mx-auto">
             <h2 className="text-6xl md:text-7xl font-bold text-white mb-16 text-center">
               SERVICES
             </h2>
             
-            {/* Services Grid - All 6 Images in Two Rows */}
+            {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {servicesWithImages.map((service) => (
                 <div 
                   key={service.id}
                   className="white-card rounded-2xl overflow-hidden cursor-pointer aspect-[4/3] relative group"
-                  onClick={() => navigate('/services')}
+                  onClick={() => navigate(service.path)}
                 >
                   <img 
                     src={service.image} 
@@ -380,14 +580,15 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Gallery Section - White Cards */}
+        
+        {/* Gallery Section */}
         <div className="py-24 px-4">
           <div className="max-w-[1600px] mx-auto">
             <h2 className="text-6xl md:text-7xl font-bold text-white mb-16 text-center">
               GALLERY
             </h2>
             
-            {/* Gallery Grid - Images Only */}
+            {/* Gallery Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {galleryImages.slice(0, 3).map((item) => (
                 <div 
@@ -416,7 +617,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Contact Form Section - Integrated with White Boxes */}
+        {/* Contact Form Section */}
         <div className="py-24 px-4">
           <div className="max-w-[1200px] mx-auto">
             <h2 className="text-6xl md:text-7xl font-bold text-white mb-16 text-center">
@@ -435,7 +636,7 @@ const Home = () => {
                       </div>
                       <div>
                         <p className="text-blue-800 text-xl font-medium">+91 91416 21820</p>
-                        <p className="text-blue-600 text-sm">+91 94810 16006</p>
+                        <p className="text-blue-800 text-xl font-medium">+91 94810 16006</p>
                       </div>
                     </div>
                     
@@ -444,7 +645,7 @@ const Home = () => {
                         <Mail className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-blue-800 text-xl font-medium">info@sriAyyappanGlass.com</p>
+                        <p className="text-blue-800 text-xl font-medium">info@sriayyappanGlass.com</p>
                       </div>
                     </div>
                     
@@ -501,7 +702,7 @@ const Home = () => {
                           onChange={handleChange}
                           placeholder="Your Name"
                           required
-                          className="form-input w-full p-4 rounded-xl focus:outline-none placeholder-gray-500"
+                          className="form-input w-full p-4 rounded-xl placeholder-gray-500"
                         />
                         <input
                           type="email"
@@ -510,7 +711,7 @@ const Home = () => {
                           onChange={handleChange}
                           placeholder="Email Address"
                           required
-                          className="form-input w-full p-4 rounded-xl focus:outline-none placeholder-gray-500"
+                          className="form-input w-full p-4 rounded-xl placeholder-gray-500"
                         />
                       </div>
                       
@@ -522,14 +723,14 @@ const Home = () => {
                           onChange={handleChange}
                           placeholder="Phone Number"
                           required
-                          className="form-input w-full p-4 rounded-xl focus:outline-none placeholder-gray-500"
+                          className="form-input w-full p-4 rounded-xl placeholder-gray-500"
                         />
                         <select
                           name="service"
                           value={formData.service}
                           onChange={handleChange}
                           required
-                          className="form-input w-full p-4 rounded-xl focus:outline-none"
+                          className="form-input w-full p-4 rounded-xl"
                         >
                           <option value="" className="bg-white text-gray-500">Select Service</option>
                           {services.map((service, idx) => (
@@ -545,7 +746,7 @@ const Home = () => {
                         placeholder="Project Details / Message"
                         rows="4"
                         required
-                        className="form-input w-full p-4 rounded-xl focus:outline-none placeholder-gray-500"
+                        className="form-input w-full p-4 rounded-xl placeholder-gray-500"
                       />
                       
                       <button
@@ -585,10 +786,104 @@ const Home = () => {
               </div>
             </div>
           </div>
+          {/* Horizontal Scrolling Reviews Section */}
+        <div className="py-24 px-4">
+          <div className="max-w-[1600px] mx-auto">
+            <h2 className="text-6xl md:text-7xl font-bold text-white mb-4 text-center">
+             Our Testimonials
+            </h2>
+            <p className="text-xl text-white/80 text-center mb-12">Hear what our satisfied customers say</p>
+            
+            {/* Overall Rating Summary */}
+            
+
+            {/* Horizontal Scrolling Reviews Container */}
+            <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+              {/* Left Scroll Button */}
+              <button 
+                onClick={scrollPrev}
+                disabled={currentReviewIndex === 0}
+                className="scroll-button absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+              >
+                <ChevronLeft className="w-6 h-6 text-blue-700" />
+              </button>
+
+              {/* Reviews Horizontal Container */}
+              <div 
+                ref={reviewsContainerRef}
+                className="reviews-container flex overflow-x-auto gap-8 pb-8 px-4 scroll-snap-x"
+                style={{ scrollSnapType: 'x mandatory' }}
+              >
+                {reviews.map((review) => (
+                  <div 
+                    key={review.id}
+                    className="review-card rounded-2xl p-8 min-w-[90vw] md:min-w-[500px] lg:min-w-[500px]"
+                  >
+                    {/* Quote Icon */}
+                    <div className="mb-4">
+                      <Quote className="w-10 h-10 text-blue-500 opacity-20" />
+                    </div>
+                    
+                    {/* Rating */}
+                    <div className="mb-4">
+                      {renderStars(review.rating)}
+                    </div>
+                    
+                    {/* Review Text */}
+                    <p className="review-text mb-6 text-lg">
+                      {review.text}
+                    </p>
+                    
+                    {/* Client Info */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 review-avatar rounded-full text-xl">
+                        {review.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div>
+                        <h4 className="review-name text-xl font-bold">{review.name}</h4>
+                        <p className="review-location text-sm">{review.location}</p>
+                        <p className="review-location text-xs mt-1">{review.date}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Scroll Button */}
+              <button 
+                onClick={scrollNext}
+                disabled={currentReviewIndex >= reviews.length - 2}
+                className="scroll-button absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+              >
+                <RightChevron className="w-6 h-6 text-blue-700" />
+              </button>
+            </div>
+
+            {/* Scroll Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {reviews.slice(0, Math.ceil(reviews.length / 2)).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (reviewsContainerRef.current) {
+                      const scrollAmount = reviewsContainerRef.current.clientWidth * 0.8 * index;
+                      reviewsContainerRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+                      setCurrentReviewIndex(index * 2);
+                    }
+                  }}
+                  className={`indicator-dot w-3 h-3 rounded-full ${
+                    Math.floor(currentReviewIndex / 2) === index 
+                      ? 'bg-blue-500 scale-125' 
+                      : 'bg-white/50'
+                  }`}
+                  aria-label={`Go to review group ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Footer */}
-         
+        </div>
       </div>
     </div>
   );

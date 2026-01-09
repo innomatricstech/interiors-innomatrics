@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import ScrollToTopBtn from './components/ScrollToTopBtn';
 import Home from './pages/Home';
 import About from './pages/About';
-import ServicesPage from './components/Services';
+ 
 import ServicesList from '../src/components/ServicesLayout'; // New - All services listing page
 import BalconyRailing from './components/BalconyRailing';
 import LacqueredGlass from './components/LacquredGlass';
@@ -29,6 +29,8 @@ import GalleryPage from './components/Gallery';
 import Contact from './components/ContactForm';
 import FloatingSupport from "./components/FloatingSupport";
 import OurWorks from './pages/OurWorks';
+import ServiceDetails from './pages/ServicesDetails.jsx';
+import ServicesPage from './components/Services.jsx';
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
             {/* Services Routes */}
             <Route path="/services" element={<ServicesList />} /> {/* All services list */}
             <Route path="/services/:id" element={<ServicesPage />} /> {/* Old service modal view */}
+            <Route path="/services-details" element={<ServiceDetails/>}/>
             
             {/* Individual Service Pages */}
             <Route path="/services/balcony-railing" element={<BalconyRailing />} />
