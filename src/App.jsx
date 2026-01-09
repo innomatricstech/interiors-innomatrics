@@ -6,9 +6,11 @@ import ScrollToTopBtn from './components/ScrollToTopBtn';
 import Home from './pages/Home';
 import About from './pages/About';
  
-import ServicesList from '../src/components/ServicesLayout'; // New - All services listing page
+import ServicesList from './components/ServicesLayout.jsx';
+ // New - All services listing page
 import BalconyRailing from './components/BalconyRailing';
-import LacqueredGlass from './components/LacquredGlass';
+import LacqueredGlass from './components/LacqueredGlass.jsx';
+
 import PVCUPVCDoors from './components/PVCUPVCDoors';
 import UPVCWindowsPrice from './components/UPVCWindowsPrice';
 import GlassShopNearMe from './components/Glassshopnearme.jsx';
@@ -25,7 +27,7 @@ import GlassPartitionCompany from './components/GlassPartitionCompany.jsx';
  
 import LEDSmartMirrors from './components/LEDSmartMirrors';
 import SpiderGlassFacade from './components/SpiderGlassFacade';
-import GalleryPage from './components/Gallery';
+import GalleryPage from './components/Gallery.jsx';
 import Contact from './components/ContactForm';
 import FloatingSupport from "./components/FloatingSupport";
 import OurWorks from './pages/OurWorks';
