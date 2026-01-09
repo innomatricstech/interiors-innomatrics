@@ -13,7 +13,8 @@ import LacqueredGlass from './components/LacqueredGlass.jsx';
 
 import PVCUPVCDoors from './components/PVCUPVCDoors';
 import UPVCWindowsPrice from './components/UPVCWindowsPrice';
-import GlassShopNearMe from './components/Glassshopnearme.jsx';
+import GlassShopNearMe from './components/GlassShopNearMe.jsx';
+
 import ShowerDoorsInstallation from './components/ShowerDoorsInstallation.jsx';
 import ShowerEnclosures from './components/ShowerEnclosures.jsx';
 import ToughenedGlass from './components/ToughenedGlass.jsx';
