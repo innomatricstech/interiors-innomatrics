@@ -1,6 +1,7 @@
+ 
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star, Quote, ChevronLeft,Calendar, Briefcase, Smile,  ChevronRight as RightChevron } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star, Quote, ChevronLeft,Calendar, Briefcase, Smile,  ChevronRight as RightChevron, Building } from 'lucide-react';
 
 // Import real images and video
 import homeVideo from "../assets/videos/homevideo.mp4";
@@ -12,6 +13,14 @@ import ledMirrors from "../assets/img/led galss.jpg";
 import toughenedGlass from "../assets/img/modern-bathroom-with-small-space-contemporary-decor.jpg";
 import gallery1 from "../assets/img/beautiful-hotel-insights-details.jpg";
 import gallery2 from "../assets/img/dinner-table-cafe.jpg";
+
+// Import client logos
+import adarsh from "../assets/img/logos/adarsh-group.png";
+import homelane from "../assets/img/logos/Homelane.png";
+import dsmax from "../assets/img/logos/Ds-Max.png";
+import neo from "../assets/img/logos/neo.jpg";
+import gateway from "../assets/img/logos/hotel.png";
+import eta from "../assets/img/logos/Et-Mall.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,6 +47,16 @@ const Home = () => {
     'LED Mirrors',
     'Frameless Glass',
     'Custom Solutions'
+  ];
+
+  // Client logos
+  const clients = [
+    { name: "Adarsh Builders", logo: adarsh },
+    { name: "Homelane Interiors", logo: homelane },
+    { name: "DS Max (Kryshvi Interiors)", logo: dsmax },
+    { name: "Neo Studio", logo: neo },
+    { name: "Gateway Hotel", logo: gateway },
+    { name: "ETA Mall", logo: eta },
   ];
 
   // Services with images and paths
@@ -599,6 +618,44 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Client Logos Section */}
+        <div className="py-16 md:py-20 px-4 bg-gradient-to-b from-transparent to-blue-900/20">
+          <div className="max-w-[1600px] mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
+                <Building className="w-5 h-5 text-blue-300" />
+                <span className="text-blue-300 font-medium tracking-widest uppercase text-sm">Trusted By</span>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
+                Our Esteemed Clients
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                Trusted by leading brands and organizations across India for premium glass solutions
+              </p>
+            </div>
+
+            {/* Client Logos Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
+              {clients.map((client, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl p-4 md:p-6 flex flex-col items-center justify-center hover:border-blue-500/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="h-12 md:h-16 object-contain group-hover:scale-110 transition-transform duration-300 relative z-10"
+                    loading="lazy"
+                  />
+                  <p className="mt-3 md:mt-4 text-xs md:text-sm font-semibold text-gray-300 group-hover:text-white text-center relative z-10">
+                    {client.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
         
         {/* Gallery Section */}
         <div className="py-24 px-4">
@@ -969,3 +1026,4 @@ const Home = () => {
 };
 
 export default Home;
+ 
