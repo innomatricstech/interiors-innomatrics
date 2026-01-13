@@ -10,10 +10,10 @@ import heroBanner from "../assets/img/modern-bathroom-with-small-space-contempor
 
 const About = () => {
   const stats = [
-    { value: "25+", label: "YEARS" },
+    { value: "9+", label: "YEAR" },
     { value: "850+", label: "PROJECTS" },
     { value: "99%", label: "CLIENTS" },
-    { value: "4.9", label: "RATING" }
+    { value: "4.7", label: "RATING" }
   ];
 
   const values = [

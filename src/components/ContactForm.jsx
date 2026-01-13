@@ -42,7 +42,7 @@ const ContactForm = () => {
       icon: <Mail className="w-6 h-6 md:w-8 md:h-8" />,
       title: "EMAIL",
       main: [
-        "sriayyapanglassandplaywoods@gmail.com",
+         
         "info@sriayyapanglass.com"
       ],
       sub: "Available 24/7",

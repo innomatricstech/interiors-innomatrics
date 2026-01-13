@@ -10,10 +10,10 @@ const Gallery = () => {
   const [loadedImages, setLoadedImages] = useState(new Set());
   const containerRef = useRef(null);
   const scrollTimeoutRef = useRef(null);
+  const sliderRef = useRef(null);
 
   // PERFOMANCE OPTIMIZATION: Throttle scroll and animations
   useEffect(() => {
-    // Disable smooth scrolling during interactions
     const disableSmoothScroll = () => {
       document.documentElement.style.scrollBehavior = 'auto';
     };
@@ -32,33 +32,29 @@ const Gallery = () => {
     };
   }, []);
 
-  // PERFOMANCE: Debounce state updates
-  const debouncedSetState = useCallback((setter, value, delay = 50) => {
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-    scrollTimeoutRef.current = setTimeout(() => {
-      setter(value);
-    }, delay);
-  }, []);
-
+  // Create unique gallery items with proper IDs
   const galleryItems = useMemo(() => {
     const seen = new Set();
     const items = [];
 
-    servicesData.forEach(service => {
+    servicesData.forEach((service, serviceIndex) => {
       if (!Array.isArray(service.images)) return;
 
-      service.images.forEach(img => {
+      service.images.forEach((img, imgIndex) => {
         if (!img || seen.has(img)) return;
         seen.add(img);
         
+        // Create unique ID with service index and image index
+        const uniqueId = `${service.title}-${imgIndex}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        
         items.push({
-          id: img,
+          id: uniqueId,
           image: img,
           title: service.title,
           category: service.category,
           type: typeof img === "string" && img.endsWith(".mp4") ? "video" : "image",
+          serviceIndex,
+          imgIndex
         });
       });
     });
@@ -97,6 +93,28 @@ const Gallery = () => {
     });
   }, [galleryItems.length]);
 
+  // Handle grid image click - FIXED VERSION
+  const handleGridImageClick = useCallback((item) => {
+    // Find the exact index in the galleryItems array
+    const index = galleryItems.findIndex(g => g.image === item.image && g.title === item.title);
+    
+    if (index !== -1) {
+      setCurrentIndex(index);
+      setIsFullView(true);
+      
+      // Scroll to the slider section
+      setTimeout(() => {
+        const sliderElement = document.querySelector('.relative.w-full.h-\\[400px\\], .relative.w-full.h-\\[500px\\]');
+        if (sliderElement) {
+          sliderElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 100);
+    }
+  }, [galleryItems]);
+
   // PERFOMANCE: Lazy load images with Intersection Observer
   useEffect(() => {
     if (!containerRef.current || isFullView) return;
@@ -121,7 +139,6 @@ const Gallery = () => {
       });
     }, observerOptions);
 
-    // Observe only visible images
     const images = containerRef.current.querySelectorAll('img[data-src]');
     images.forEach(img => imageObserver.observe(img));
 
@@ -230,12 +247,8 @@ const Gallery = () => {
             {filteredItems.map((item) => (
               <div 
                 key={item.id}
-                onClick={() => {
-                  const index = galleryItems.findIndex(g => g.id === item.id);
-                  setCurrentIndex(index);
-                  setIsFullView(true);
-                }}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br from-white/5 to-white/10 border border-white/10"
+                onClick={() => handleGridImageClick(item)}
+                className="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02]"
               >
                 {item.type === 'video' ? (
                   <div className="relative w-full h-full">
@@ -257,8 +270,8 @@ const Gallery = () => {
                     <img 
                       data-src={item.image}
                       src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1067'%3E%3Crect width='800' height='1067' fill='%231e293b'/%3E%3C/svg%3E"
-                      className="w-full h-full object-cover"
-                      alt=""
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      alt={item.title}
                       loading="lazy"
                     />
                     {!loadedImages.has(item.image) && (
@@ -274,7 +287,7 @@ const Gallery = () => {
                     {item.type === 'video' ? 'VIDEO' : item.category}
                   </p>
                   <h3 className="text-lg font-bold mb-3">{item.title}</h3>
-                  <div className="flex items-center gap-2 text-white/50 group-hover:text-white">
+                  <div className="flex items-center gap-2 text-white/50 group-hover:text-white transition-colors">
                     {item.type === 'video' ? (
                       <>
                         <Video size={16} />
@@ -293,7 +306,7 @@ const Gallery = () => {
           </div>
         ) : (
           /* 3D SHOWCASE - OPTIMIZED */
-          <div className="w-full py-10">
+          <div className="w-full py-10" ref={sliderRef}>
             <div className="flex justify-between items-center mb-8">
                <div className="flex items-center gap-3 text-blue-500">
                   <Boxes size={20} />
@@ -301,7 +314,7 @@ const Gallery = () => {
                </div>
                <button 
                   onClick={() => setIsFullView(false)}
-                  className="bg-white/5 hover:bg-blue-600 px-6 py-2 rounded-full border border-white/10 text-xs font-bold flex items-center gap-2"
+                  className="bg-white/5 hover:bg-blue-600 px-6 py-2 rounded-full border border-white/10 text-xs font-bold flex items-center gap-2 transition-colors"
                >
                   <LayoutGrid size={16} /> BACK TO GRID
                </button>
@@ -314,15 +327,15 @@ const Gallery = () => {
                   return (
                     <div
                       key={item.id}
-                      className="absolute w-[85%] max-w-[600px] aspect-video transition-all duration-500 ease-out rounded-2xl overflow-hidden"
+                      className="absolute w-[85%] max-w-[600px] aspect-video transition-all duration-500 ease-out rounded-2xl overflow-hidden shadow-2xl"
                       style={style}
                     >
                       {item.type === 'video' ? (
                         <video 
                           className="w-full h-full object-cover"
                           controls
-                          autoPlay
-                          muted
+                          autoPlay={index === currentIndex}
+                          muted={index !== currentIndex}
                           preload="metadata"
                         >
                           <source src={item.image} type="video/mp4" />
@@ -331,7 +344,7 @@ const Gallery = () => {
                         <img 
                           src={item.image} 
                           className="w-full h-full object-cover" 
-                          alt="" 
+                          alt={item.title}
                         />
                       )}
                       
@@ -349,10 +362,16 @@ const Gallery = () => {
 
                {/* Navigation Controls */}
                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 z-50">
-                  <button onClick={prevSlide} className="p-4 bg-white text-black rounded-full hover:bg-blue-600 hover:text-white shadow-lg">
+                  <button 
+                    onClick={prevSlide} 
+                    className="p-4 bg-white text-black rounded-full hover:bg-blue-600 hover:text-white shadow-lg transition-all"
+                  >
                     <ChevronLeft size={24}/>
                   </button>
-                  <button onClick={nextSlide} className="p-4 bg-white text-black rounded-full hover:bg-blue-600 hover:text-white shadow-lg">
+                  <button 
+                    onClick={nextSlide} 
+                    className="p-4 bg-white text-black rounded-full hover:bg-blue-600 hover:text-white shadow-lg transition-all"
+                  >
                     <ChevronRight size={24}/>
                   </button>
                </div>
@@ -360,7 +379,7 @@ const Gallery = () => {
 
             {/* Pagination dots */}
             <div className="flex justify-center gap-2 mt-8">
-               {galleryItems.slice(0, 10).map((item, i) => (
+               {galleryItems.map((item, i) => (
                   <button 
                     key={i} 
                     onClick={() => setCurrentIndex(i)}
@@ -371,6 +390,19 @@ const Gallery = () => {
                     }`} 
                   />
                ))}
+            </div>
+
+            {/* Current item info */}
+            <div className="text-center mt-8">
+              <div className="inline-flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-3 rounded-xl">
+                <span className="text-sm text-white/70">Now Viewing:</span>
+                <span className="font-bold text-blue-400">
+                  {galleryItems[currentIndex]?.title || ''}
+                </span>
+                <span className="text-xs px-3 py-1 rounded-full bg-white/10">
+                  {currentIndex + 1} / {galleryItems.length}
+                </span>
+              </div>
             </div>
           </div>
         )}

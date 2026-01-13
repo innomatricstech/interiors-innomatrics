@@ -183,9 +183,9 @@ const Header = () => {
             </div>
 
             {/* Email */}
-            <div className="flex flex-col md:flex-row md:gap-4 break-all text-sm md:text-base font-medium">
+            <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
               <span>info@ayyapanglass.com</span>
-              <span className="hidden md:inline">•</span>
+              <span className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">•</span>
               <span>sriayyapanglassandplaywoods@gmail.com</span>
             </div>
           </div>
