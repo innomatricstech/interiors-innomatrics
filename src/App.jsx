@@ -36,6 +36,7 @@ import GlassPartitionPriceCost from './components/GlassPartitionPriceCost.jsx';
 import WallGlassPartition from './components/WallGlassPartition.jsx';
 import CallFloatingIcon from "./components/CallFloatingIcon";
 import ContactPopup from "./components/ContactPopup";
+import ActorGallery from "./components/ActorGallery";
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
             <Route path="/services/wall-glass-partition" element={<WallGlassPartition />} />
             <Route path="/services/led-smart-mirrors" element={<LEDSmartMirrors />} />
             <Route path="/services/spider-glass-facade" element={<SpiderGlassFacade />} />
+            <Route path="/actors-gallery" element={<ActorGallery />} />
             
             {/* Added missing UPVC Windows (UPVC WINDOWS PRICE in screenshot) */}
             

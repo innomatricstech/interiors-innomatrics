@@ -25,6 +25,7 @@ import dsmax from "../assets/img/logos/Ds-Max.png";
 import neo from "../assets/img/logos/neo.jpg";
 import gateway from "../assets/img/logos/hotel.png";
 import eta from "../assets/img/logos/Et-Mall.png";
+import { actorMedia } from "../utils/actor";
 
 const OurWorks = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -232,7 +233,6 @@ const OurWorks = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          // REMOVED fixed attachment for performance
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
@@ -314,6 +314,63 @@ const OurWorks = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ================= TAMIL ACTOR WORKS SECTION ================= */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="text-center mb-10 md:mb-16">
+          <div className="inline-block mb-3">
+            <span className="bg-purple-900/30 text-purple-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+              Special Project
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-black uppercase mb-3">
+            Tamil Actor Works
+          </h2>
+          <p className="text-purple-400 font-semibold tracking-widest uppercase text-sm md:text-base">
+            Celebrity Glass Works
+          </p>
+        </div>
+
+        {/* ACTOR IMAGES GRID - Only 10 images */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-10">
+          {actorMedia.ourWorksImages && actorMedia.ourWorksImages.map((img, index) => (
+            <div
+              key={index}
+              className="group relative aspect-square rounded-2xl overflow-hidden border border-white/5 bg-gradient-to-br from-white/5 to-transparent"
+            >
+              <img
+                src={img}
+                alt={`Actor Work ${index + 1}`}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+              
+              {/* OVERLAY GRADIENT */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              {/* IMAGE NUMBER */}
+              <div className="absolute top-3 right-3 bg-black/60 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                {index + 1}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* VIEW MORE BUTTON */}
+        <div className="text-center">
+          <a
+            href="/actors-gallery"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white font-bold text-lg rounded-full shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300"
+          >
+            <span>View Full Actor Gallery</span>
+            <ChevronRight size={20} className="animate-pulse" />
+          </a>
+          
+          <p className="mt-4 text-gray-400 text-sm">
+            Explore all images and video
+          </p>
         </div>
       </section>
 
