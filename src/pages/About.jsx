@@ -300,14 +300,22 @@ const About = () => {
                 <p className="text-blue-800 text-xs sm:text-sm uppercase tracking-wider font-medium">EST. 2017</p>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                SRI AYYAPPAN<br />GLASS
-              </h1>
-              
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-                PREMIUM GLASS SOLUTIONS
-              </p>
-              
+             <h1 className="
+ text-xl
+  font-extrabold tracking-wide text-white
+  mb-3 sm:mb-4 leading-tight
+">
+  SRI AYYAPPAN<br />GLASS
+</h1>
+
+<p className="
+  text-base sm:text-lg md:text-xl lg:text-2xl
+  tracking-widest font-medium text-white/85
+  mb-6 sm:mb-8
+">
+  PREMIUM GLASS SOLUTIONS
+</p>
+
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 <button 
                   onClick={handleGetConsultation}

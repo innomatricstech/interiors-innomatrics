@@ -4,7 +4,6 @@ import emailjs from "@emailjs/browser";
 
 const ContactPopup = () => {
   const [open, setOpen] = useState(false);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,7 +11,6 @@ const ContactPopup = () => {
     service: "",
   });
 
-  /* 🔹 SAME SERVICES AS CONTACT FORM */
   const services = [
     "SHOWER PARTITIONS",
     "UPVC WINDOWS",
@@ -29,14 +27,13 @@ const ContactPopup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  /* 🔥 EMAILJS SUBMIT */
   const handleSubmit = (e) => {
     e.preventDefault();
 
     emailjs
       .send(
-        "service_1w6e7b8",        // 🔴 SAME SERVICE ID
-        "template_527ixtm",       // 🔴 SAME TEMPLATE ID
+        "service_1w6e7b8",
+        "template_527ixtm",
         {
           name: formData.name,
           email: formData.email,
@@ -45,7 +42,7 @@ const ContactPopup = () => {
           message: "Enquiry from Contact Popup",
           year: new Date().getFullYear(),
         },
-        "rKrHOvAx59tAEL0ed"      // 🔴 SAME PUBLIC KEY
+        "rKrHOvAx59tAEL0ed"
       )
       .then(() => {
         alert("✅ Enquiry sent successfully!");
@@ -65,7 +62,7 @@ const ContactPopup = () => {
 
   return (
     <>
-      {/* TOGGLE ICON */}
+      {/* TOGGLE ICON - ALWAYS VISIBLE */}
       <div
         className={`toggle-icon ${open ? "close" : ""}`}
         onClick={() => setOpen(!open)}
@@ -73,7 +70,7 @@ const ContactPopup = () => {
         {open ? <FaTimes /> : <FaCommentDots />}
       </div>
 
-      {/* POPUP FORM */}
+      {/* POPUP FORM - ONLY VISIBLE WHEN OPEN IS TRUE */}
       {open && (
         <div className="popup-wrapper">
           <form className="popup-card" onSubmit={handleSubmit}>
@@ -127,71 +124,126 @@ const ContactPopup = () => {
         </div>
       )}
 
-      {/* CSS */}
-      <style>{`
+      <style jsx>{`
+        /* TOGGLE ICON - ALWAYS VISIBLE */
         .toggle-icon {
           position: fixed;
-          bottom: 160px;
-          right: 20px;
-          width: 55px;
-          height: 55px;
+          bottom: 150px;
+          right: 14px;
+          width: 50px;
+          height: 50px;
           background: #0d6efd;
           color: white;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 24px;
+          font-size: 22px;
           cursor: pointer;
           z-index: 1001;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           transition: all 0.3s ease;
         }
 
-        .toggle-icon.close {
-          background: #e63946;
-          transform: rotate(180deg);
+        .toggle-icon:hover {
+          background: #0b5ed7;
+          transform: scale(1.05);
         }
 
+        .toggle-icon.close {
+          background: #dc3545;
+        }
+
+        .toggle-icon.close:hover {
+          background: #bb2d3b;
+        }
+
+        /* POPUP FORM */
         .popup-wrapper {
           position: fixed;
-          bottom: 155px;
-          right: 20px;
+          bottom: 220px;
+          right: 10px;
+          left: 10px;
           z-index: 1000;
+          animation: slideIn 0.3s ease-out;
         }
 
         .popup-card {
-          width: 340px;
           background: white;
-          border-radius: 20px;
-          padding: 22px;
-          box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+          border-radius: 12px;
+          padding: 25px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          max-width: 400px;
+          margin: 0 auto;
         }
 
         .popup-card h2 {
+          margin-top: 0;
+          margin-bottom: 20px;
+          color: #333;
+          font-size: 1.5rem;
           text-align: center;
-          color: #e63946;
-          margin-bottom: 15px;
         }
 
         .popup-card input,
         .popup-card select {
           width: 100%;
-          padding: 10px;
-          margin-bottom: 12px;
-          border-radius: 8px;
+          padding: 12px;
+          margin-bottom: 15px;
           border: 1px solid #ddd;
+          border-radius: 6px;
+          font-size: 14px;
+          box-sizing: border-box;
+        }
+
+        .popup-card input:focus,
+        .popup-card select:focus {
+          outline: none;
+          border-color: #0d6efd;
+          box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         }
 
         .submit-btn {
           width: 100%;
-          background: #e63946;
+          padding: 12px;
+          background: #0d6efd;
           color: white;
           border: none;
-          padding: 12px;
-          border-radius: 10px;
+          border-radius: 6px;
           font-size: 16px;
+          font-weight: 600;
           cursor: pointer;
+          transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+          background: #0b5ed7;
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* DESKTOP STYLES */
+        @media (min-width: 769px) {
+          .toggle-icon {
+            bottom: 220px;
+            right: 30px;
+          }
+
+          .popup-wrapper {
+            bottom: 300px;
+            right: 30px;
+            left: auto;
+            width: 400px;
+          }
         }
       `}</style>
     </>

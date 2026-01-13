@@ -548,13 +548,27 @@ const Home = () => {
           {/* Hero Content */}
           <div className="relative z-10 h-full flex items-center">
             <div className="px-8 md:px-16 max-w-4xl">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-wide text-orange-500 mb-4 sm:mb-6 leading-snug">
-                SRI AYYAPPAN<br />GLASS
-              </h1>
+              <h1 className="
+  text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+  font-semibold tracking-[0.2em]
+  text-orange-500
+  mb-3 sm:mb-4 leading-snug
+">
+  SRI AYYAPPAN<br />
+  <span className="tracking-[0.3em] font-light">GLASS</span>
+</h1>
 
-              <p className="text-2xl md:text-3xl text-white/90 mb-12">
-                PREMIUM GLASS SOLUTIONS SINCE 2017
-              </p>
+<p className="
+  text-sm sm:text-base md:text-lg
+  tracking-[0.35em]
+  uppercase
+  font-medium
+  text-white/80
+  mb-10
+">
+  PREMIUM GLASS SOLUTIONS · SINCE 2017
+</p>
+
               
               <div className="flex flex-col md:flex-row gap-6">
                 <button
