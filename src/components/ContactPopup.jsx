@@ -1,8 +1,67 @@
 import React, { useState } from "react";
 import { FaCommentDots, FaTimes } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 
 const ContactPopup = () => {
   const [open, setOpen] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+  });
+
+  /* 🔹 SAME SERVICES AS CONTACT FORM */
+  const services = [
+    "SHOWER PARTITIONS",
+    "UPVC WINDOWS",
+    "GLASS RAILINGS",
+    "TOUGHENED GLASS",
+    "LACQUERED GLASS",
+    "LED MIRRORS",
+    "FRAMELESS GLASS",
+    "SPIDER FITTINGS",
+    "CUSTOM SOLUTIONS",
+  ];
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  /* 🔥 EMAILJS SUBMIT */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_1w6e7b8",        // 🔴 SAME SERVICE ID
+        "template_527ixtm",       // 🔴 SAME TEMPLATE ID
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: "Enquiry from Contact Popup",
+          year: new Date().getFullYear(),
+        },
+        "rKrHOvAx59tAEL0ed"      // 🔴 SAME PUBLIC KEY
+      )
+      .then(() => {
+        alert("✅ Enquiry sent successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+        });
+        setOpen(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("❌ Failed to send enquiry");
+      });
+  };
 
   return (
     <>
@@ -14,25 +73,57 @@ const ContactPopup = () => {
         {open ? <FaTimes /> : <FaCommentDots />}
       </div>
 
-      {/* POPUP */}
+      {/* POPUP FORM */}
       {open && (
         <div className="popup-wrapper">
-          <div className="popup-card">
+          <form className="popup-card" onSubmit={handleSubmit}>
             <h2>Enquiry Form</h2>
 
-            <input type="text" placeholder="Enter your full name" />
-            <input type="email" placeholder="Enter your email" />
-            <input type="text" placeholder="Enter your phone number" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-            <select>
-              <option>Select a service</option>
-              <option>Interior Design</option>
-              <option>Modular Kitchen</option>
-              <option>False Ceiling</option>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="phone"
+              placeholder="Enter your phone number"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a service</option>
+              {services.map((service, index) => (
+                <option key={index} value={service}>
+                  {service}
+                </option>
+              ))}
             </select>
 
-            <button className="submit-btn">Submit Enquiry</button>
-          </div>
+            <button type="submit" className="submit-btn">
+              Submit Enquiry
+            </button>
+          </form>
         </div>
       )}
 
@@ -40,7 +131,7 @@ const ContactPopup = () => {
       <style>{`
         .toggle-icon {
           position: fixed;
-          bottom: 90px;
+          bottom: 180px;
           right: 20px;
           width: 55px;
           height: 55px;
@@ -57,7 +148,6 @@ const ContactPopup = () => {
           transition: all 0.3s ease;
         }
 
-        /* X state */
         .toggle-icon.close {
           background: #e63946;
           transform: rotate(180deg);
@@ -65,7 +155,7 @@ const ContactPopup = () => {
 
         .popup-wrapper {
           position: fixed;
-          bottom: 155px; /* icon mela attach */
+          bottom: 155px;
           right: 20px;
           z-index: 1000;
         }
