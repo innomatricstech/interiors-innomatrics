@@ -130,7 +130,7 @@ import Glassshowerdoorinstallation4 from "../assets/img/Glass-shower-Doors-Insta
 
 // ================= GLASS SHOWER ENCLOSURES =================
 import glassShowerEnclosures1 from "../assets/img/Glass-shower-enclousers/shower-Enclosure-45.jpg";
-import glassShowerEnclosures2 from "../assets/img/Glass-shower-enclouserss/Shower-Glass-Enclosure-image-1.webp";
+import glassShowerEnclosures2 from "../assets/img/Glass-shower-enclousers/Shower-Glass-Enclosure-image-1.webp";
 import glassShowerEnclosures3 from "../assets/img/Glass-shower-enclousers/Shower-Glass-Enclosure-image-2.jpg";
 import glassShowerEnclosures4 from "../assets/img/Glass-shower-enclousers/Shower-Glass-Enclosure-image-3.jpg";
 import glassShowerEnclosures5 from "../assets/img/Glass-shower-enclousers/Shower-Glass-Enclosure-image-4.jpg";
