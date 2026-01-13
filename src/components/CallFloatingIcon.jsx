@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CallFloatingIcon = () => {
   const navigate = useNavigate();
-  const phoneNumber = "919591181111";
+  const phoneNumber = "9481016006";
 
   const handleCallClick = () => {
     const isMobile = /iPhone|Android|iPad/i.test(navigator.userAgent);
