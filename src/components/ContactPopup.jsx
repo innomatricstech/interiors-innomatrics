@@ -131,7 +131,7 @@ const ContactPopup = () => {
       <style>{`
         .toggle-icon {
           position: fixed;
-          bottom: 180px;
+          bottom: 160px;
           right: 20px;
           width: 55px;
           height: 55px;

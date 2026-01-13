@@ -25,7 +25,7 @@ const CallFloatingIcon = () => {
       <style>{`
         .call-float {
           position: fixed;
-          bottom: 250px;
+          bottom: 220px;
           right: 20px;
           width: 55px;
           height: 55px;
