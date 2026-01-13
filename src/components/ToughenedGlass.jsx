@@ -2,7 +2,7 @@
 import React from 'react';
 import { Shield, Thermometer, Hammer, Award, CheckCircle, Zap } from 'lucide-react';
 import ServiceLayout from './ServicesLayout';
-import { images, imageCategories } from '../utils/images';
+import { images } from '../utils/images';
 
 const ToughenedGlass = () => {
 
@@ -24,11 +24,21 @@ const ToughenedGlass = () => {
     "Custom cut to size"
   ];
 
+  // Use exact images from images.js
+  const galleryImages = [
+    images.toughenedGlass[0], // toughened1
+    images.toughenedGlass[1], // toughened2
+    images.toughenedGlass[2], // toughened3
+    images.toughenedGlass[3], // toughened4
+    images.toughenedGlass[4], // toughened5
+    images.gallery[2], // glazing works
+  ];
+
   return (
     <ServiceLayout
       title="Toughened Glass"
       category="SAFETY GLASS"
-      bannerImage={images.gallery6}
+      bannerImage={images.toughenedGlassBanner || images.toughenedGlass[0]}
       description="High-quality toughened safety glass manufactured and installed for residential and commercial applications. Designed for strength, safety, and durability."
       features={[
         { title: "ISI Certified Quality", description: "BIS approved safety standards" },
@@ -129,7 +139,7 @@ const ToughenedGlass = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {imageCategories.oldGallery.slice(2, 8).map((img, index) => (
+          {galleryImages.map((img, index) => (
             <div key={index} className="aspect-[4/3] overflow-hidden rounded-2xl">
               <img
                 src={img}

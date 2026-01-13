@@ -13,20 +13,44 @@ import {
   Users,
   Award,
   Home,
-  MapPin
+  MapPin,
+  Sparkles,
+  Zap
 } from "lucide-react";
+
+// Import your services data
+import { servicesData } from "../utils/servicesdata";
 
 const ServiceDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const service = state?.service;
-  const media = useMemo(() => service?.media || [], [service]);
+  const serviceId = state?.service?.id;
+  
+  // Find the service by ID from servicesData
+  const service = useMemo(() => {
+    return servicesData.find(s => s.id === serviceId);
+  }, [serviceId]);
+
+  // Prepare media array from service.images
+  const media = useMemo(() => {
+    if (!service?.images) return [];
+    
+    return service.images.map(item => {
+      // Check if it's a video file (ends with .mp4)
+      const isVideo = typeof item === 'string' && item.endsWith('.mp4');
+      
+      return {
+        src: item,
+        type: isVideo ? "video" : "image"
+      };
+    });
+  }, [service]);
 
   const [index, setIndex] = useState(0);
   const videoRef = useRef(null);
 
-  // AUTO SLIDER
+  // AUTO SLIDER LOGIC
   useEffect(() => {
     if (!media.length) return;
 
@@ -34,7 +58,7 @@ const ServiceDetails = () => {
     let timer;
 
     if (current.type === "image") {
-      timer = setTimeout(nextSlide, 3500);
+      timer = setTimeout(nextSlide, 4000);
     }
 
     if (current.type === "video" && videoRef.current) {
@@ -46,269 +70,242 @@ const ServiceDetails = () => {
   }, [index, media]);
 
   const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % media.length);
+    if (media.length > 0) {
+      setIndex((prev) => (prev + 1) % media.length);
+    }
   };
 
   const prevSlide = () => {
-    setIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
+    if (media.length > 0) {
+      setIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
+    }
   };
 
-  if (!service) {
-    navigate("/services");
-    return null;
-  }
+  // If service not found, navigate back
+  useEffect(() => {
+    if (!service) {
+      navigate("/services");
+    }
+  }, [service, navigate]);
+
+  if (!service) return null;
+
+  // Default features if not provided
+  const defaultFeatures = [
+    "High-Quality Materials",
+    "Professional Installation",
+    "Durable & Long-lasting",
+    "Custom Design Options",
+    "Timely Completion",
+    "After-Sales Support"
+  ];
+
+  const features = service.features || defaultFeatures;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#020617] via-[#0a0f2b] to-[#020617] text-white">
-      
-      {/* BACK BUTTON - Modern Design */}
-      <div className="max-w-7xl mx-auto px-4 pt-8">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-white/80 hover:text-white bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10 transition-all duration-300 group"
-        >
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-medium">Back to Services</span>
-        </button>
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-blue-500/30">
+      {/* BACKGROUND DECORATION */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-600/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-cyan-600/10 blur-[120px] rounded-full" />
       </div>
 
-      {/* MAIN CONTENT CONTAINER */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+      {/* TOP NAVIGATION */}
+      <nav className="relative z-50 max-w-7xl mx-auto px-6 pt-10">
+        <button
+          onClick={() => navigate(-1)}
+          className="group flex items-center gap-3 text-white/70 hover:text-white bg-white/5 backdrop-blur-md hover:bg-white/10 px-5 py-2.5 rounded-2xl border border-white/10 transition-all duration-500"
+        >
+          <ArrowLeft size={20} className="group-hover:-translate-x-1.5 transition-transform duration-300" />
+          <span className="text-sm font-semibold tracking-wide">Back to Services</span>
+        </button>
+      </nav>
+
+      {/* MAIN CONTENT */}
+      <main className="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           
-          {/* LEFT COLUMN - SLIDER */}
-          <div className="space-y-6">
-            {/* SLIDER CONTAINER */}
-            <div className="relative w-full h-[400px] rounded-3xl overflow-hidden shadow-2xl">
-              {media.map((item, i) => (
-                <div
-                  key={i}
-                  className={`absolute inset-0 transition-all duration-1000 ${
-                    i === index 
-                      ? "opacity-100 scale-100 z-10" 
-                      : "opacity-0 scale-105 z-0"
-                  }`}
-                >
-                  {item.type === "image" ? (
-                    <img
-                      src={item.src}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <video
-                      ref={i === index ? videoRef : null}
-                      src={item.src}
-                      className="w-full h-full object-cover"
-                      muted
-                      playsInline
-                      onEnded={nextSlide}
-                    />
-                  )}
-                </div>
-              ))}
-
-              {/* GRADIENT OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 z-20" />
-
-              {/* ARROWS - Modern Design */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-black/60 hover:bg-black/80 backdrop-blur-sm p-3 rounded-full border border-white/20 transition-all hover:scale-110"
-              >
-                <ChevronLeft size={24} />
-              </button>
-
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-black/60 hover:bg-black/80 backdrop-blur-sm p-3 rounded-full border border-white/20 transition-all hover:scale-110"
-              >
-                <ChevronRight size={24} />
-              </button>
-
-              {/* SLIDER INDICATORS */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
-                {media.map((_, i) => (
-                  <button
+          {/* LEFT: VISUAL SHOWCASE */}
+          <div className="sticky top-10 space-y-8">
+            <div className="relative group aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] border border-white/10">
+              {media.length > 0 ? (
+                media.map((item, i) => (
+                  <div
                     key={i}
-                    onClick={() => setIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      i === index 
-                        ? "bg-white w-8" 
-                        : "bg-white/40 hover:bg-white/60"
+                    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                      i === index ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-110 rotate-1"
                     }`}
-                  />
-                ))}
-              </div>
+                  >
+                    {item.type === "image" ? (
+                      <img 
+                        src={item.src} 
+                        alt={`${service.title} - Image ${i + 1}`} 
+                        className="w-full h-full object-cover" 
+                      />
+                    ) : (
+                      <video
+                        ref={i === index ? videoRef : null}
+                        src={item.src}
+                        className="w-full h-full object-cover"
+                        muted
+                        playsInline
+                        onEnded={nextSlide}
+                      />
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-800/50">
+                  <p className="text-white/50">No images available</p>
+                </div>
+              )}
+
+              {/* OVERLAYS */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
+              
+              {/* NAVIGATION CONTROLS */}
+              {media.length > 1 && (
+                <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <button onClick={prevSlide} className="p-4 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all">
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button onClick={nextSlide} className="p-4 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all">
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
+              )}
+
+              {/* PROGRESS INDICATORS */}
+              {media.length > 1 && (
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+                  {media.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setIndex(i)}
+                      className={`h-1.5 rounded-full transition-all duration-500 ${
+                        i === index ? "bg-blue-500 w-10" : "bg-white/30 w-3 hover:bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* SERVICE STATS CARD */}
-            <div className="bg-gradient-to-r from-white/5 to-white/3 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <h3 className="text-lg font-bold mb-4 text-white/90">Service Stats</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-blue-400 mb-1">
-                    <Calendar size={16} />
-                    <span className="text-2xl font-black">{service.stats?.years || 5}+</span>
-                  </div>
-                  <p className="text-xs text-white/60 uppercase tracking-wider">Years Experience</p>
+            {/* QUICK STATS */}
+            <div className="grid grid-cols-4 gap-4 p-2">
+              {[
+                { label: "Experience", val: "5+", color: "text-blue-400", icon: Calendar },
+                { label: "Projects", val: "100+", color: "text-emerald-400", icon: CheckCircle },
+                { label: "Rating", val: "4.9", color: "text-amber-400", icon: Star },
+                { label: "Support", val: "24/7", color: "text-purple-400", icon: Clock },
+              ].map((stat, idx) => (
+                <div key={idx} className="bg-white/5 backdrop-blur-md rounded-3xl p-4 border border-white/10 text-center hover:bg-white/10 transition-colors">
+                  <stat.icon size={18} className={`${stat.color} mx-auto mb-2`} />
+                  <div className="text-xl font-black">{stat.val}</div>
+                  <div className="text-[10px] uppercase tracking-tighter text-white/50">{stat.label}</div>
                 </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-emerald-400 mb-1">
-                    <CheckCircle size={16} />
-                    <span className="text-2xl font-black">{service.stats?.projects || 100}+</span>
-                  </div>
-                  <p className="text-xs text-white/60 uppercase tracking-wider">Projects Done</p>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-amber-400 mb-1">
-                    <Star size={16} />
-                    <span className="text-2xl font-black">{service.stats?.rating || 4.8}</span>
-                  </div>
-                  <p className="text-xs text-white/60 uppercase tracking-wider">Customer Rating</p>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-purple-400 mb-1">
-                    <Clock size={16} />
-                    <span className="text-2xl font-black">24/7</span>
-                  </div>
-                  <p className="text-xs text-white/60 uppercase tracking-wider">Support</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT COLUMN - DETAILS */}
-          <div className="space-y-8">
-            {/* HEADER SECTION */}
-            <div>
-              {/* BADGE & RATING */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs px-4 py-1.5 rounded-full uppercase font-black tracking-widest shadow-lg">
-                  Premium Service
+          {/* RIGHT: SERVICE INFO */}
+          <div className="lg:pt-10 space-y-10">
+            <section className="space-y-6">
+              <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full">
+                <Sparkles size={14} className="text-blue-400" />
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">
+                  {service.category || "Premium Solution"}
                 </span>
-                <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} fill="currentColor" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-bold">{service.stats?.rating || 4.8}</span>
-                </div>
               </div>
 
-              {/* TITLE */}
-              <h1 className="text-4xl md:text-5xl font-black uppercase mb-6 leading-tight">
+              <h1 className="text-5xl md:text-6xl font-black leading-[1.1] tracking-tight bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
                 {service.title}
               </h1>
 
-              {/* DESCRIPTION */}
-              <p className="text-white/80 text-lg leading-relaxed mb-8">
-                {service.shortDesc || "Professional glass solution with premium quality materials and expert installation."}
+              <p className="text-white/70 text-xl leading-relaxed font-light">
+                {service.description || "We provide high-end glass architectural solutions tailored for modern aesthetics and maximum durability."}
               </p>
-            </div>
+            </section>
 
-            {/* FEATURES SECTION */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white/90">Key Features</h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {service.features?.map((f, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 bg-gradient-to-r from-white/5 to-white/3 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:border-white/20 transition-all group hover:translate-x-1"
-                  >
-                    <div className="p-2 bg-blue-500/20 rounded-lg">
-                      <ShieldCheck size={20} className="text-blue-400" />
+            {/* FEATURES GRID */}
+            <section className="space-y-6">
+              <h3 className="text-sm font-black uppercase tracking-[0.3em] text-white/40">Technical Excellence</h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {features.map((feature, i) => (
+                  <div key={i} className="group flex items-start gap-4 bg-white/5 hover:bg-white/10 p-5 rounded-[2rem] border border-white/10 transition-all duration-500 hover:-translate-y-1">
+                    <div className="mt-1 p-2 bg-blue-600/20 rounded-xl group-hover:scale-110 transition-transform">
+                      <ShieldCheck size={22} className="text-blue-400" />
                     </div>
-                    <span className="font-medium">{f}</span>
+                    <span className="text-white/90 font-medium leading-tight">{feature}</span>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {/* BENEFITS SECTION */}
-            <div className="bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/5 rounded-2xl p-6 border border-blue-500/20">
-              <h3 className="text-xl font-bold mb-4 text-white/90">Why Choose Us</h3>
-              <div className="grid grid-cols-2 gap-4">
+            {/* TRUST BANNER */}
+            <section className="p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-600/20 to-cyan-600/10 border border-blue-500/20 relative overflow-hidden group">
+              <Zap className="absolute -right-8 -top-8 w-32 h-32 text-blue-500/10 rotate-12 group-hover:scale-110 transition-transform duration-700" />
+              <h3 className="text-xl font-bold mb-6">Execution Excellence</h3>
+              <div className="grid grid-cols-2 gap-6 relative z-10">
                 <div className="flex items-center gap-3">
-                  <Award size={18} className="text-amber-400" />
-                  <span className="text-sm">Certified Experts</span>
+                  <Award className="text-amber-400 shrink-0" size={20} />
+                  <span className="text-sm font-medium text-white/80">Certified Quality</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock size={18} className="text-emerald-400" />
-                  <span className="text-sm">On-Time Delivery</span>
+                  <Clock className="text-emerald-400 shrink-0" size={20} />
+                  <span className="text-sm font-medium text-white/80">Rapid Execution</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <ShieldCheck size={18} className="text-blue-400" />
-                  <span className="text-sm">Quality Assurance</span>
+                  <ShieldCheck className="text-blue-400 shrink-0" size={20} />
+                  <span className="text-sm font-medium text-white/80">10-Year Warranty</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Users size={18} className="text-purple-400" />
-                  <span className="text-sm">Customer Support</span>
+                  <Users className="text-purple-400 shrink-0" size={20} />
+                  <span className="text-sm font-medium text-white/80">Expert Supervision</span>
                 </div>
               </div>
-            </div>
+            </section>
 
-            {/* CTA SECTION */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-white/70 text-sm">
-                <MapPin size={16} />
-                <span>Chennai, India</span>
-                <Home size={16} />
-                <span>Free Site Visit Available</span>
+            {/* ACTION SECTION */}
+            <section className="space-y-6">
+              <div className="flex flex-wrap items-center gap-6 text-white/50 text-xs font-bold uppercase tracking-widest px-2">
+                <div className="flex items-center gap-2"><MapPin size={14} className="text-red-500" /> Chennai & Surrounding</div>
+                <div className="flex items-center gap-2"><Home size={14} className="text-blue-500" /> On-site Measurement</div>
               </div>
-              
+
               <button
                 onClick={() => (window.location.href = "tel:+919141621820")}
-                className="
-                  w-full
-                  bg-gradient-to-r from-blue-600 to-cyan-500
-                  hover:from-blue-500 hover:to-cyan-400
-                  px-8
-                  py-5
-                  rounded-xl
-                  font-black
-                  uppercase
-                  tracking-widest
-                  flex
-                  items-center
-                  justify-center
-                  gap-3
-                  transition-all
-                  hover:scale-[1.02]
-                  active:scale-[0.98]
-                  shadow-2xl
-                  shadow-blue-500/30
-                  hover:shadow-blue-500/50
-                "
+                className="group w-full relative overflow-hidden bg-white text-black py-6 rounded-3xl font-black uppercase tracking-widest flex items-center justify-center gap-4 transition-all active:scale-[0.98] shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)]"
               >
-                <Phone size={20} />
-                <span>Call Expert Now: +91 91416 21820</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Phone size={24} className="relative z-10 group-hover:text-white transition-colors" />
+                <span className="relative z-10 group-hover:text-white transition-colors text-lg">Call Expert: +91 91416 21820</span>
               </button>
-
-              <p className="text-center text-white/60 text-sm">
-                24/7 Available • Free Consultation • No Hidden Charges
+              
+              <p className="text-center text-white/40 text-sm font-medium">
+                Free Estimate • Expert Consultation • Instant Quotation
               </p>
-            </div>
+            </section>
           </div>
         </div>
-      </div>
+      </main>
 
-      {/* RELATED SERVICES SECTION (Optional) */}
-      <div className="max-w-7xl mx-auto px-4 py-8 mt-8">
-        <h3 className="text-2xl font-bold mb-6 text-white/90">Related Services</h3>
+      {/* FOOTER RELATED */}
+      <footer className="max-w-7xl mx-auto px-6 py-20">
+        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-12" />
+        <h3 className="text-2xl font-bold mb-8 text-center bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent">Explore More Categories</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {["Glass Partitions", "UPVC Windows", "Shower Enclosures", "Safety Glass"].map((item, i) => (
+          {["Toughened Glass", "UPVC Systems", "Lacquered Art", "Smart Mirrors"].map((item, i) => (
             <button
               key={i}
               onClick={() => navigate('/services')}
-              className="bg-white/5 hover:bg-white/10 p-4 rounded-xl border border-white/10 text-center transition-all hover:border-white/20"
+              className="bg-white/5 hover:bg-white/10 p-6 rounded-[2rem] border border-white/5 text-center transition-all duration-500 hover:border-blue-500/50 group"
             >
-              <span className="text-sm font-medium">{item}</span>
+              <span className="text-sm font-bold tracking-wide group-hover:text-blue-400 transition-colors">{item}</span>
             </button>
           ))}
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

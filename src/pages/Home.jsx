@@ -6,11 +6,11 @@ import { Phone, Mail, MapPin, Send, CheckCircle, ChevronRight, Play, Pause, Star
 // Import real images and video
 import homeVideo from "../assets/videos/homevideo.mp4";
 import shower90 from "../assets/img/frame shower partition.jpg";
-import upvcWindows from "../assets/img/glazing works.jpg";
-import glassRailings from "../assets/img/spider-fitting glass.jpg";
-import lacqueredGlass from "../assets/img/lacqured-glass.jpg";
-import ledMirrors from "../assets/img/led galss.jpg";
-import toughenedGlass from "../assets/img/modern-bathroom-with-small-space-contemporary-decor.jpg";
+import upvcWindows from "../assets/img/Upvc-glass.jpg";
+import glassRailings from "../assets/img/Glass-railing.jpg";
+import lacqueredGlass from "../assets/img/Lacqured-glass-interior.jpg";
+import ledMirrors from "../assets/img/led-miror-glass.jpg";
+import toughenedGlass from "../assets/img/Toughned-glass.jpg";
 import gallery1 from "../assets/img/beautiful-hotel-insights-details.jpg";
 import gallery2 from "../assets/img/dinner-table-cafe.jpg";
 
@@ -188,7 +188,7 @@ const Home = () => {
     });
   };
 
-  const handleViewMoreServices = () => navigate('/services');
+  const handleViewMoreServices = () => navigate('/services/:id');
   const handleViewMoreGallery = () => navigate('/gallery');
 
   const toggleVideoPlay = () => {

@@ -13,7 +13,7 @@ const Header = () => {
   const servicesDropdown = [
     { name: "SS Railing Glass for Balcony", href: "/services/balcony-railing" },
     { name: "Lacquered Glass", href: "/services/lacquered-glass" },
-    { name: "PVC & UPVC Doors", href: "/services/pvc-upvc-doors" },
+    { name: " UPVC Doors", href: "/services/pvc-upvc-doors" },
     { name: "UPVC Windows Price", href: "/services/upvc-windows-price" },
     { name: "Glass Shop Near Me", href: "/services/glass-shop-near-me" },
     {
@@ -22,10 +22,7 @@ const Header = () => {
     },
     { name: "Glass Shower Enclosures", href: "/services/shower-enclosures" },
     { name: "Toughened Glass", href: "/services/toughened-glass" },
-    {
-      name: "Interior Design House Glass",
-      href: "/services/interior-design-house-glass",
-    },
+     
     { name: "Glass Installation", href: "/services/glass-installation" },
     { name: "Shower Doors", href: "/services/shower-doors" },
     {

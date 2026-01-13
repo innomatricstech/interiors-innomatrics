@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Phone, MessageSquare, Calendar, CheckCircle } from 'lucide-react';
-import { images } from "../utils/images";
+import { ArrowLeft, Phone, MessageSquare, Calendar, CheckCircle, Star, ShieldCheck, Zap } from 'lucide-react';
+import images from "../utils/images";
 
 const ServiceLayout = ({ 
   children, 
@@ -15,135 +15,148 @@ const ServiceLayout = ({
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white">
-      {/* Back Button */}
-      <div className="fixed top-24 left-4 md:left-8 z-30">
-        <button
-          onClick={() => navigate('/services')}
-          className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-3 hover:bg-white/20 transition-all group shadow-lg"
-        >
-          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-        </button>
-      </div>
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-blue-500/30">
+      
+  {/* BACK NAVIGATION - Modern Floating Style */}
+<div className="absolute top-[200px] left-6 z-50">
+  <button
+    onClick={() => navigate("/services/:id")}
+    className="group flex items-center gap-2
+      bg-white/5 backdrop-blur-xl
+      border border-white/10 hover:border-blue-500/50
+      rounded-2xl px-4 py-3
+      transition-all duration-500
+      hover:bg-white/10 shadow-2xl"
+  >
+    <ArrowLeft
+      size={18}
+      className="group-hover:-translate-x-1.5 transition-transform duration-300"
+    />
+    <span className="text-[10px] font-black uppercase tracking-widest">
+      All Services
+    </span>
+  </button>
+</div>
 
-      {/* Hero Banner with CLEAR BACKGROUND IMAGE */}
+
+
+      {/* HERO SECTION with PARALLAX EFFECT */}
       <div 
-        className="relative h-[80vh] overflow-hidden"
+        className="relative h-[85vh] flex items-end pb-24 overflow-hidden"
         style={{
-          backgroundImage: `url(${bannerImage || images.lacquredglass1})`,
+          backgroundImage: `url(${bannerImage || images.lacquredGlass.images[0]})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed'
         }}
       >
-        {/* Semi-transparent overlay for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
+        {/* Multilayered Overlays for Depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#020617]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-transparent to-transparent opacity-80" />
         
-        <div className="relative z-10 h-full flex items-center">
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="max-w-4xl">
-              {/* Category Badge */}
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2 rounded-full mb-6 shadow-xl">
-                <span className="text-sm font-black uppercase tracking-widest">{category}</span>
-              </div>
-              
-              {/* Main Title - Large and Clear */}
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-tight mb-6 text-white drop-shadow-[0_5px_20px_rgba(0,0,0,0.8)]">
-                {title}
-              </h1>
-              
-              {/* Description */}
-              <p className="text-xl md:text-2xl text-gray-200 mt-6 max-w-3xl leading-relaxed drop-shadow-md">
-                {description}
-              </p>
-              
-              {/* Stats */}
-              <div className="flex flex-wrap gap-6 md:gap-8 mt-10">
-                <div className="text-center bg-white/10 backdrop-blur-sm p-5 rounded-2xl border border-white/20 min-w-[120px]">
-                  <div className="text-3xl md:text-4xl font-black text-blue-400">{stats.projects}+</div>
-                  <div className="text-xs uppercase tracking-widest text-gray-300 mt-2">Projects</div>
-                </div>
-                <div className="text-center bg-white/10 backdrop-blur-sm p-5 rounded-2xl border border-white/20 min-w-[120px]">
-                  <div className="text-3xl md:text-4xl font-black text-emerald-400">{stats.years}+</div>
-                  <div className="text-xs uppercase tracking-widest text-gray-300 mt-2">Years</div>
-                </div>
-                <div className="text-center bg-white/10 backdrop-blur-sm p-5 rounded-2xl border border-white/20 min-w-[120px]">
-                  <div className="text-3xl md:text-4xl font-black text-amber-400">{stats.rating}/5</div>
-                  <div className="text-xs uppercase tracking-widest text-gray-300 mt-2">Rating</div>
-                </div>
-              </div>
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="max-w-5xl">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-blue-600/20 backdrop-blur-md border border-blue-500/30 px-5 py-2 rounded-full mb-8 animate-fade-in">
+              <Zap size={14} className="text-blue-400" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">{category}</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-4 md:px-8 py-16">
-        {children}
-      </div>
-
-      {/* Features Section */}
-      {features.length > 0 && (
-        <div className="bg-gradient-to-b from-blue-900/20 to-transparent py-16">
-          <div className="container mx-auto px-4 md:px-8">
-            <h2 className="text-4xl md:text-5xl font-black uppercase text-center mb-16 drop-shadow-md">
-              Key Features
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {features.map((feature, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-3xl hover:border-blue-500/50 transition-all hover:scale-[1.02] shadow-xl">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="text-blue-500 mt-1 flex-shrink-0" size={24} />
-                    <div>
-                      <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                      <p className="text-gray-300 text-base">{feature.description}</p>
-                    </div>
-                  </div>
+            
+            {/* Title */}
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-8 drop-shadow-2xl">
+              {title}
+            </h1>
+            
+            {/* Description */}
+            <p className="text-lg md:text-2xl text-white/70 max-w-3xl leading-relaxed font-light mb-10 border-l-2 border-blue-500 pl-6">
+              {description}
+            </p>
+            
+            {/* Stats Panel */}
+            <div className="flex flex-wrap gap-4 md:gap-6">
+              {[
+                { label: "Execution", val: `${stats.projects}+`, icon: ShieldCheck, color: "text-blue-400" },
+                { label: "Expertise", val: `${stats.years}+ Years`, icon: Calendar, color: "text-emerald-400" },
+                { label: "Trust", val: stats.rating, icon: Star, color: "text-amber-400" },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white/5 backdrop-blur-2xl border border-white/10 p-6 rounded-[2rem] min-w-[160px] hover:bg-white/10 transition-colors group">
+                   <item.icon size={20} className={`${item.color} mb-3 group-hover:scale-110 transition-transform`} />
+                   <div className="text-2xl font-black">{item.val}</div>
+                   <div className="text-[9px] uppercase tracking-widest text-white/40 mt-1">{item.label}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* DYNAMIC CONTENT AREA */}
+      <div className="container mx-auto px-6 md:px-12 py-20 relative z-20">
+        <div className="grid lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-12">
+            {children}
+          </div>
+        </div>
+      </div>
+
+      {/* FEATURES GRID */}
+      {features.length > 0 && (
+        <section className="bg-white/[0.02] border-y border-white/5 py-24">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="flex flex-col items-center mb-20 text-center">
+              <span className="text-blue-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Technical Specs</span>
+              <h2 className="text-4xl md:text-6xl font-black uppercase">Service Excellence</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <div key={index} className="group bg-white/5 backdrop-blur-sm border border-white/5 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-blue-500/30 transition-all duration-500">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-blue-600 transition-all">
+                    <CheckCircle className="text-blue-400 group-hover:text-white" size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4 uppercase tracking-tight">{feature.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
-      {/* CTA Section */}
-      <div className="container mx-auto px-4 md:px-8 py-16">
-        <div className="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/40 rounded-3xl p-10 md:p-12 text-center backdrop-blur-md shadow-2xl">
-          <h2 className="text-4xl md:text-5xl font-black uppercase mb-6 drop-shadow-lg">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-gray-200 text-lg mb-10 max-w-3xl mx-auto leading-relaxed">
-            Contact us today for a free consultation and quote. Our experts are ready to bring your vision to life.
-          </p>
-          
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <button
-              onClick={() => navigate('/contact')}
-              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-base hover:scale-105 transition-transform shadow-2xl hover:shadow-blue-500/30 min-w-[200px]"
-            >
-              <Phone size={22} />
-              Contact Us
-            </button>
+      {/* FINAL CTA - High Impact */}
+      <div className="container mx-auto px-6 md:px-12 py-24">
+        <div className="relative rounded-[3rem] overflow-hidden bg-[#0f172a] border border-blue-500/20 p-12 md:p-20 text-center">
+          {/* Decorative Background for CTA */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-[100px] rounded-full -mr-48 -mt-48" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/10 blur-[100px] rounded-full -ml-48 -mb-48" />
 
-            <a
-              href="https://wa.me/919141621820"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-600 to-green-500 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-base hover:scale-105 transition-transform shadow-2xl hover:shadow-emerald-500/30 min-w-[200px]"
-            >
-              <MessageSquare size={22} />
-              WhatsApp
-            </a>
+          <div className="relative z-10 max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-7xl font-black uppercase leading-none mb-8">
+              Start Your <span className="text-blue-500">Project</span> Today
+            </h2>
+            <p className="text-white/60 text-lg md:text-xl mb-12 font-light">
+              Chennai's leading glass architectural experts are just a click away. Get your free site measurement and estimate now.
+            </p>
             
-            <button
-              onClick={() => navigate('/contact')}
-              className="inline-flex items-center justify-center gap-3 bg-white/10 border border-white/30 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-base hover:bg-white/20 transition-all min-w-[200px]"
-            >
-              <Calendar size={22} />
-              Book Consultation
-            </button>
+            <div className="flex flex-wrap justify-center gap-6">
+              <button
+                onClick={() => window.location.href = "tel:+919141621820"}
+                className="flex items-center gap-3 bg-white text-black px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all shadow-2xl"
+              >
+                <Phone size={20} />
+                Call +91 91416 21820
+              </button>
+
+              <a
+                href="https://wa.me/919141621820"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-2xl shadow-emerald-900/20"
+              >
+                <MessageSquare size={20} />
+                WhatsApp Us
+              </a>
+            </div>
           </div>
         </div>
       </div>

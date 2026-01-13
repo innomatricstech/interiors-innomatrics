@@ -43,37 +43,37 @@ const UPVCWindowsPrice = () => {
     { 
       type: "Casement Windows",
       desc: "Hinged windows that open outward",
-      image: images.gallery3,
+      image: images.upvcWindows[0] || images.gallery[2],
       icon: "↗️"
     },
     { 
       type: "Sliding Windows",
       desc: "Horizontal sliding for easy operation",
-      image: images.balcony1,
+      image: images.upvcWindows[1] || images.balconyGlass[0],
       icon: "←→"
     },
     { 
       type: "Tilt & Turn Windows",
       desc: "Versatile opening for ventilation & cleaning",
-      image: images.balcony2,
+      image: images.upvcWindows[2] || images.balconyGlass[1],
       icon: "↕️"
     },
     { 
       type: "Fixed Windows",
       desc: "Non-opening windows for maximum view",
-      image: images.gallery7,
+      image: images.upvcWindows[3] || images.gallery[6],
       icon: "📐"
     },
     { 
       type: "Bay Windows",
       desc: "Projecting windows creating extra space",
-      image: images.gallery1,
+      image: images.upvcWindows[4] || images.gallery[0],
       icon: "🔶"
     },
     { 
       type: "French Windows",
       desc: "Floor-to-ceiling glass panels",
-      image: images.gallery8,
+      image: images.upvcDoors[0] || images.gallery[7],
       icon: "🪟"
     }
   ];
@@ -85,11 +85,11 @@ const UPVCWindowsPrice = () => {
     },
     { 
       factor: "Glass specification",
-      icon: <img src={images.glassMirrors} alt="Glass" className="w-5 h-5" />
+      icon: <Ruler size={18} className="text-emerald-400" />
     },
     { 
       factor: "Profile thickness & brand",
-      icon: <Ruler size={18} className="text-emerald-400" />
+      icon: <Shield size={18} className="text-amber-400" />
     },
     { 
       factor: "Hardware & locking system",
@@ -111,14 +111,14 @@ const UPVCWindowsPrice = () => {
 
   // Gallery images for UPVC windows
   const windowGallery = [
-    images.gallery3,
-    images.balcony1,
-    images.balcony2,
-    images.balcony3,
-    images.balcony4,
-    images.balcony5,
-    images.gallery7,
-    images.gallery1
+    images.upvcWindows[0] || images.gallery[2],
+    images.upvcWindows[1] || images.balconyGlass[0],
+    images.upvcWindows[2] || images.balconyGlass[1],
+    images.upvcWindows[3] || images.balconyGlass[2],
+    images.upvcWindows[4] || images.balconyGlass[3],
+    images.upvcWindows[5] || images.balconyGlass[4],
+    images.upvcDoors[0] || images.gallery[6],
+    images.upvcDoors[1] || images.gallery[0]
   ];
 
   const priceTiers = [
@@ -126,7 +126,7 @@ const UPVCWindowsPrice = () => {
       name: "Basic Series",
       price: "₹850/sq.ft",
       features: ["3-chamber profile", "Single glazing", "Standard hardware", "White color"],
-      image: images.balcony3,
+      image: images.upvcWindows[0] || images.balconyGlass[2],
       color: "border-gray-500",
       bgColor: "from-gray-900/30 to-gray-800/30"
     },
@@ -134,7 +134,7 @@ const UPVCWindowsPrice = () => {
       name: "Standard Series",
       price: "₹1,250/sq.ft",
       features: ["5-chamber profile", "Double glazing", "Multi-point locking", "Weather seal", "Energy efficient"],
-      image: images.balcony1,
+      image: images.upvcWindows[1] || images.balconyGlass[0],
       color: "border-emerald-500",
       bgColor: "from-emerald-900/30 to-teal-900/30",
       popular: true
@@ -143,7 +143,7 @@ const UPVCWindowsPrice = () => {
       name: "Premium Series",
       price: "₹1,800/sq.ft",
       features: ["6-chamber profile", "Triple glazing", "Premium hardware", "Soundproofing", "UV protection", "Smart features"],
-      image: images.gallery7,
+      image: images.upvcWindows[2] || images.gallery[6],
       color: "border-blue-500",
       bgColor: "from-blue-900/30 to-cyan-900/30"
     }
@@ -153,7 +153,7 @@ const UPVCWindowsPrice = () => {
     <ServiceLayout
       title="UPVC Windows Price"
       category="WINDOWS"
-      bannerImage={images.gallery3}
+      bannerImage={images.upvcWindows[0] || images.gallery[2]}
       description="UPVC window cost depends on multiple factors such as design, size, glass type, and installation requirements. Contact us for a customized quotation based on your needs."
       features={features}
       stats={{ projects: 420, years: 15, rating: 4.8 }}
@@ -192,6 +192,7 @@ const UPVCWindowsPrice = () => {
 
       {/* Price Tiers */}
        
+
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-14">
         {/* Left Section - Price Factors */}
@@ -279,9 +280,9 @@ const UPVCWindowsPrice = () => {
               <img 
                 src={img} 
                 alt={`UPVC Window Project ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-cover   "
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0  transition-opacity duration-300 flex items-end p-4">
                 <span className="text-white font-medium">Project #{index + 1}</span>
               </div>
             </div>
@@ -330,7 +331,7 @@ const UPVCWindowsPrice = () => {
       {/* CTA Section */}
       <div className="relative overflow-hidden rounded-3xl">
         <img 
-          src={images.gallery1} 
+          src={images.upvcWindows[3] || images.gallery[0]} 
           alt="UPVC Window Installation"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -344,10 +345,16 @@ const UPVCWindowsPrice = () => {
               We provide transparent pricing with no hidden charges.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-bold transition-colors text-center">
+              <button 
+                onClick={() => window.location.href = "tel:+919141621820"}
+                className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-bold transition-colors text-center"
+              >
                 Request Free Quote
               </button>
-              <button className="bg-white/10 hover:bg-white/20 px-8 py-3 rounded-full font-bold transition-colors text-center border border-white/20">
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="bg-white/10 hover:bg-white/20 px-8 py-3 rounded-full font-bold transition-colors text-center border border-white/20"
+              >
                 View More Projects
               </button>
             </div>

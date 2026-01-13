@@ -2,7 +2,7 @@
 import React from 'react';
 import { GlassWater, Shield, Magnet, Droplets, Settings, CheckCircle } from 'lucide-react';
 import ServiceLayout from './ServicesLayout';
-import { images, imageCategories } from '../utils/images';
+import { images } from '../utils/images';
 
 const ShowerEnclosures = () => {
 
@@ -24,11 +24,21 @@ const ShowerEnclosures = () => {
     "Modern & luxury bathroom look"
   ];
 
+  // Use actual images from your images.js
+  const showerImages = [
+    images.showerEnclosures[0], // glassShowerEnclosures1
+    images.showerEnclosures[1], // glassShowerEnclosures2
+    images.showerEnclosures[2], // glassShowerEnclosures3
+    images.showerEnclosures[3], // glassShowerEnclosures4
+    images.showerEnclosures[4], // glassShowerEnclosures5
+    images.showerEnclosures[5], // glassShowerEnclosures6
+  ];
+
   return (
     <ServiceLayout
       title="Glass Shower Enclosures"
       category="BATHROOM"
-      bannerImage={images.shower1}
+      bannerImage={images.showerEnclosures[0]}
       description="Premium glass shower enclosure solutions designed for modern bathrooms. Available in frameless, semi-frameless, and custom enclosure designs."
       features={[
         { title: "Frameless & Framed Options", description: "Modern & classic styles" },
@@ -93,7 +103,7 @@ const ShowerEnclosures = () => {
             {types.map((type, idx) => (
               <div
                 key={idx}
-                className="bg-white/5 border border-white/10 p-5 rounded-2xl text-center font-medium"
+                className="bg-white/5 border border-white/10 p-5 rounded-2xl text-center font-medium hover:bg-white/10 transition-colors"
               >
                 {type}
               </div>
@@ -117,20 +127,62 @@ const ShowerEnclosures = () => {
         </div>
       </div>
 
-      {/* Gallery Section */}
+      {/* Applications Section */}
       <div className="mt-14">
         <h2 className="text-2xl md:text-3xl font-black uppercase mb-8 text-center">
-          Shower Enclosure Installations
+          Common Applications
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {imageCategories.shower.slice(0, 6).map((img, index) => (
-            <div key={index} className="aspect-[4/3] overflow-hidden rounded-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Master Bathrooms",
+              description: "Luxury frameless enclosures",
+              icon: <GlassWater className="text-blue-500" size={24} />
+            },
+            {
+              title: "Guest Bathrooms",
+              description: "Semi-frameless modern designs",
+              icon: <Shield className="text-emerald-500" size={24} />
+            },
+            {
+              title: "Hotel Bathrooms",
+              description: "Commercial-grade enclosures",
+              icon: <Droplets className="text-cyan-500" size={24} />
+            }
+          ].map((app, index) => (
+            <div 
+              key={index} 
+              className="bg-white/5 border border-white/10 p-8 rounded-2xl text-center hover:bg-white/10 transition-colors"
+            >
+              <div className="flex justify-center mb-4">{app.icon}</div>
+              <h3 className="text-xl font-bold mb-3">{app.title}</h3>
+              <p className="text-gray-300">{app.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Gallery Section */}
+      <div className="mt-20">
+        <div className="flex flex-col items-center mb-10">
+          <h2 className="text-2xl md:text-4xl font-black uppercase mb-4 text-center">
+            Shower Enclosure Gallery
+          </h2>
+          <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {showerImages.map((img, index) => (
+            <div key={index} className="group relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 shadow-xl">
               <img
                 src={img}
-                alt={`Shower Enclosure ${index + 1}`}
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                alt={`Shower Enclosure Installation ${index + 1}`}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                <span className="text-xs font-black uppercase tracking-widest text-blue-400">View Details</span>
+              </div>
             </div>
           ))}
         </div>
