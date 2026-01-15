@@ -116,7 +116,7 @@ const UPVCWindowsPrice = () => {
     images.upvcWindows[2] || images.balconyGlass[1],
     images.upvcWindows[3] || images.balconyGlass[2],
     images.upvcWindows[4] || images.balconyGlass[3],
-    images.upvcWindows[5] || images.balconyGlass[4],
+    images.upvcWindows[5] || images.upvcDoors[4],
     images.upvcDoors[0] || images.gallery[6],
     images.upvcDoors[1] || images.gallery[0]
   ];

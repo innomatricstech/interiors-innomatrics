@@ -95,8 +95,8 @@ const navigateWithScroll = (path) => {
       icon: Clock,
       content: (
         <>
-          <span className="font-medium">Mon - Sat:</span> 9:00 AM - 8:00 PM <br />
-          <span className="font-medium">Sunday:</span> 10:00 AM - 6:00 PM
+          <span className="font-medium">Mon - Sat:</span> 10:00 AM - 7:00 PM <br />
+          <span className="font-medium">Sunday:</span> Leave
         </>
       ),
       color: "text-purple-400",
