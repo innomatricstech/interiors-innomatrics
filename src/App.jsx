@@ -42,8 +42,7 @@ function App() {
   return (
     <Router>
       <FloatingSupport />
-      <CallFloatingIcon />
-      <ContactPopup />
+     
       <ScrollToTopBtn />
       <div className="min-h-screen flex flex-col">
         <Header />

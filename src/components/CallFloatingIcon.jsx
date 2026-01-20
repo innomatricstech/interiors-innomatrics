@@ -18,50 +18,58 @@ const CallFloatingIcon = () => {
 
   return (
     <>
-      <div className="call-float" onClick={handleCallClick}>
-        <FaPhoneAlt />
+      <div className="floating-container">
+        <div className="call-float" onClick={handleCallClick}>
+          <FaPhoneAlt />
+        </div>
       </div>
 
-    <style>{`
-.call-float {
-  position: fixed;
-  bottom: 200px;
-  right: 20px;
-  width: 55px;
-  height: 55px;
-  background: #0d6efd;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
+      <style>{`
+        /* MAIN FLOATING CONTAINER */
+        .floating-container {
+          position: fixed;
+          bottom: 140px;
+          right: 30px;
+          z-index: 1000;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
-/* 📱 MOBILE – UNCHANGED */
-@media (max-width: 768px) {
-  .call-float {
-    bottom: 220px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
-  }
-}
+        .call-float {
+          width: 54px;
+          height: 54px;
+          background: #0d6efd;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          cursor: pointer;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+          transition: transform 0.2s ease, background 0.2s ease;
+        }
 
-/* 🖥️ DESKTOP ONLY – MOVE UP */
-@media (min-width: 769px) {
-  .call-float {
-    bottom: 150px;   /* ⬆ desktop-la mela pogum */
-    right: 20px;
-  }
-}
-`}</style>
+        .call-float:hover {
+          background: #0b5ed7;
+          transform: scale(1.08);
+        }
 
+        /* 📱 MOBILE */
+        @media (max-width: 768px) {
+          .floating-container {
+            bottom: calc(80px + env(safe-area-inset-bottom));
+            right: 14px;
+          }
 
+          .call-float {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+          }
+        }
+      `}</style>
     </>
   );
 };

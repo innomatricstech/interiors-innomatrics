@@ -54,84 +54,94 @@ const ContactPopup = () => {
         });
         setOpen(false);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         alert("❌ Failed to send enquiry");
       });
   };
 
   return (
     <>
-      {/* TOGGLE ICON - ALWAYS VISIBLE */}
-      <div
-        className={`toggle-icon ${open ? "close" : ""}`}
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <FaTimes /> : <FaCommentDots />}
+      {/* MAIN FLOATING CONTAINER */}
+      <div className="floating-container">
+        {/* TOGGLE ICON */}
+        <div
+          className={`toggle-icon ${open ? "close" : ""}`}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <FaTimes /> : <FaCommentDots />}
+        </div>
+
+        {/* POPUP */}
+        {open && (
+          <div className="popup-wrapper">
+            <form className="popup-card" onSubmit={handleSubmit}>
+              <h2>Enquiry Form</h2>
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your full name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                type="text"
+                name="phone"
+                placeholder="Enter your phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+
+              <select
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select a service</option>
+                {services.map((service, index) => (
+                  <option key={index} value={service}>
+                    {service}
+                  </option>
+                ))}
+              </select>
+
+              <button type="submit" className="submit-btn">
+                Submit Enquiry
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {/* POPUP FORM - ONLY VISIBLE WHEN OPEN IS TRUE */}
-      {open && (
-        <div className="popup-wrapper">
-          <form className="popup-card" onSubmit={handleSubmit}>
-            <h2>Enquiry Form</h2>
-
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="text"
-              name="phone"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-
-            <select
-              name="service"
-              value={formData.service}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a service</option>
-              {services.map((service, index) => (
-                <option key={index} value={service}>
-                  {service}
-                </option>
-              ))}
-            </select>
-
-            <button type="submit" className="submit-btn">
-              Submit Enquiry
-            </button>
-          </form>
-        </div>
-      )}
-
-      <style jsx>{`
-        /* TOGGLE ICON - ALWAYS VISIBLE */
-        .toggle-icon {
+      <style>{`
+        /* MAIN FLOATING CONTAINER */
+        .floating-container {
           position: fixed;
-          bottom: 150px;
-          right: 14px;
-          width: 50px;
-          height: 50px;
+          bottom: 200px;
+          right: 30px;
+          z-index: 1001;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        /* TOGGLE ICON */
+        .toggle-icon {
+          width: 54px;
+          height: 54px;
           background: #0d6efd;
           color: white;
           border-radius: 50%;
@@ -140,14 +150,13 @@ const ContactPopup = () => {
           justify-content: center;
           font-size: 22px;
           cursor: pointer;
-          z-index: 1001;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          transition: all 0.3s ease;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+          transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .toggle-icon:hover {
           background: #0b5ed7;
-          transform: scale(1.05);
+          transform: scale(1.08);
         }
 
         .toggle-icon.close {
@@ -158,13 +167,9 @@ const ContactPopup = () => {
           background: #bb2d3b;
         }
 
-        /* POPUP FORM */
+        /* POPUP — SAME STRAIGHT LINE */
         .popup-wrapper {
-          position: fixed;
-          bottom: 220px;
-          right: 10px;
-          left: 10px;
-          z-index: 1000;
+          margin-top: 16px;
           animation: slideIn 0.3s ease-out;
         }
 
@@ -173,15 +178,12 @@ const ContactPopup = () => {
           border-radius: 12px;
           padding: 25px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-          max-width: 400px;
-          margin: 0 auto;
+          width: 360px;
         }
 
         .popup-card h2 {
           margin-top: 0;
           margin-bottom: 20px;
-          color: #333;
-          font-size: 1.5rem;
           text-align: center;
         }
 
@@ -192,15 +194,6 @@ const ContactPopup = () => {
           margin-bottom: 15px;
           border: 1px solid #ddd;
           border-radius: 6px;
-          font-size: 14px;
-          box-sizing: border-box;
-        }
-
-        .popup-card input:focus,
-        .popup-card select:focus {
-          outline: none;
-          border-color: #0d6efd;
-          box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         }
 
         .submit-btn {
@@ -211,9 +204,7 @@ const ContactPopup = () => {
           border: none;
           border-radius: 6px;
           font-size: 16px;
-          font-weight: 600;
           cursor: pointer;
-          transition: background 0.3s;
         }
 
         .submit-btn:hover {
@@ -231,18 +222,15 @@ const ContactPopup = () => {
           }
         }
 
-        /* DESKTOP STYLES */
-        @media (min-width: 769px) {
-          .toggle-icon {
-            bottom: 220px;
-            right: 30px;
+        /* 📱 MOBILE */
+        @media (max-width: 768px) {
+          .floating-container {
+            bottom: calc(120px + env(safe-area-inset-bottom));
+            right: 14px;
           }
 
-          .popup-wrapper {
-            bottom: 300px;
-            right: 30px;
-            left: auto;
-            width: 400px;
+          .popup-card {
+            width: 90vw;
           }
         }
       `}</style>
