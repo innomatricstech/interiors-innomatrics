@@ -175,20 +175,40 @@ const Header = () => {
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           {/* Contact Details */}
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
-  {/* Phone */}
-  <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
-    <span>+91 91416 21820</span>
-    <span></span> {/* Remove hidden class */}
-    <span>+91 94810 16006</span> {/* Remove hidden class */}
-  </div>
+            {/* Phone */}
+            <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
+              <a 
+                href="tel:+919141621820" 
+                className="hover:text-amber-300 transition-colors"
+              >
+                +91 91416 21820
+              </a>
+              <span></span>
+              <a 
+                href="tel:+919481016006" 
+                className="hover:text-amber-300 transition-colors"
+              >
+                +91 94810 16006
+              </a>
+            </div>
 
-  {/* Email */}
-  <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
-    <span>info@sriayyappanglass.com</span>
-    <span className="hidden sm:inline"></span>
-    <span>sriyyapanglassandplaywoods@gmail.com</span>
-  </div>
-</div>
+            {/* Email */}
+            <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
+              <a 
+                href="mailto:info@sriayyappanglass.com" 
+                className="hover:text-amber-300 transition-colors"
+              >
+                info@sriayyappanglass.com
+              </a>
+              <span className="hidden sm:inline"></span>
+              <a 
+                href="mailto:sriyyapanglassandplaywoods@gmail.com" 
+                className="hover:text-amber-300 transition-colors"
+              >
+                sriyyapanglassandplaywoods@gmail.com
+              </a>
+            </div>
+          </div>
 
           {/* Social Icons */}
           <div className="flex gap-3 justify-start md:justify-end">
@@ -447,18 +467,30 @@ const Header = () => {
 
                 {/* Mobile Contact Info */}
                 <div className="mt-4 text-center space-y-1">
-                  <div className="text-sm font-bold text-blue-900">
+                  <a 
+                    href="tel:+919141621820" 
+                    className="text-sm font-bold text-blue-900 hover:text-blue-700 block"
+                  >
                     +91 91416 21820
-                  </div>
-                  <div className="text-sm font-bold text-blue-900">
+                  </a>
+                  <a 
+                    href="tel:+919481016006" 
+                    className="text-sm font-bold text-blue-900 hover:text-blue-700 block"
+                  >
                     +91 94810 16006
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    info@ayyapanglass.com
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    sriayyapanglassandplaywoods@gmail.com
-                  </div>
+                  </a>
+                  <a 
+                    href="mailto:info@sriayyappanglass.com" 
+                    className="text-xs text-gray-600 hover:text-blue-700 block"
+                  >
+                    info@sriayyappanglass.com
+                  </a>
+                  <a 
+                    href="mailto:sriyyapanglassandplaywoods@gmail.com" 
+                    className="text-xs text-gray-600 hover:text-blue-700 block"
+                  >
+                    sriyyapanglassandplaywoods@gmail.com
+                  </a>
                 </div>
               </div>
             </div>
