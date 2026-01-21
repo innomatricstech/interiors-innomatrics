@@ -34,7 +34,7 @@ const ContactForm = () => {
     {
       icon: <Phone className="w-6 h-6 md:w-8 md:h-8" />,
       title: "PHONE",
-      main: "+91 91416 21820",
+      main: "+91 91416 21820 ",
       sub: "+91 94810 16006",
       color: "text-blue-600"
     },
@@ -347,7 +347,7 @@ const ContactForm = () => {
                     </p>
                   )}
 
-                  <p className="contact-info-main text-sm sm:text-base md:text-lg lg:text-2xl font-bold mb-1 break-words">
+                  <p className="contact-info-main text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 break-words">
                     {info.sub}
                   </p>
                 </div>

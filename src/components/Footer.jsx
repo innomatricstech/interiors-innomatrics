@@ -96,7 +96,7 @@ const navigateWithScroll = (path) => {
       content: (
         <>
           <span className="font-medium">Mon - Sat:</span> 10:00 AM - 7:00 PM <br />
-          <span className="font-medium">Sunday:</span> Leave
+          <span className="font-medium">Sunday:</span> Holiday
         </>
       ),
       color: "text-purple-400",

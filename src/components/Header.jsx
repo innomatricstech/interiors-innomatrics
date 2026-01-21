@@ -139,7 +139,7 @@ const Header = () => {
           fill="currentColor"
           className="w-6 h-6 md:w-7 md:h-7"
         >
-          <path d="M19.11 17.93c-.29-.14-1.71-.84-1.97-.93-.26-.1-.45-.14-.64.14-.19.29-.74.93-.91 1.12-.17.19-.34.21-.63.07-.29-.14-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.59.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.44.01 1.44 1.04 2.83 1.19 3.03.14.19 2.04 3.11 4.95 4.36.69.3 1.23.48 1.65.62.69.22 1.32.19 1.82.12.55-.08 1.71-.7 1.95-1.37.24-.67.24-1.25.17-1.37-.07-.12-.26-.19-.55-.33zM16.02 2.67c-7.37 0-13.35 5.98-13.35 13.35 0 2.36.62 4.67 1.8 6.71L2.5 29.33l6.78-1.78c1.97 1.08 4.2 1.65 6.48 1.65h.01c7.37 0 13.35-5.98 13.35-13.35 0-3.57-1.39-6.93-3.92-9.46a13.3 13.3 0 0 0-9.38-3.92zm0 24.02h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-4.02 1.05 1.07-3.92-.27-.4a11.23 11.23 0 0 1-1.73-6.01c0-6.19 5.04-11.23 11.23-11.23 3 0 5.82 1.17 7.94 3.29a11.16 11.16 0 0 1 3.29 7.94c0 6.19-5.04 11.23-11.22 11.23z" />
+          <path d="M19.11 17.93c-.29-.14-1.71-.84-1.97-.93-.26-.1-.45-.14-.64.14-.19.29-.74.93-.91 1.12-.17.19-.34.21-.63.07-.29-.14-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.59.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.50-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.44.01 1.44 1.04 2.83 1.19 3.03.14.19 2.04 3.11 4.95 4.36.69.3 1.23.48 1.65.62.69.22 1.32.19 1.82.12.55-.08 1.71-.7 1.95-1.37.24-.67.24-1.25.17-1.37-.07-.12-.26-.19-.55-.33zM16.02 2.67c-7.37 0-13.35 5.98-13.35 13.35 0 2.36.62 4.67 1.8 6.71L2.5 29.33l6.78-1.78c1.97 1.08 4.2 1.65 6.48 1.65h.01c7.37 0 13.35-5.98 13.35-13.35 0-3.57-1.39-6.93-3.92-9.46a13.3 13.3 0 0 0-9.38-3.92zm0 24.02h-.01c-2 0-3.96-.54-5.67-1.56l-.41-.24-4.02 1.05 1.07-3.92-.27-.4a11.23 11.23 0 0 1-1.73-6.01c0-6.19 5.04-11.23 11.23-11.23 3 0 5.82 1.17 7.94 3.29a11.16 11.16 0 0 1 3.29 7.94c0 6.19-5.04 11.23-11.22 11.23z" />
         </svg>
       ),
 
@@ -175,20 +175,20 @@ const Header = () => {
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           {/* Contact Details */}
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
-            {/* Phone */}
-            <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
-              <span>+91 91416 21820</span>
-              <span className="hidden md:inline">•</span>
-              <span className="hidden md:inline">+91 94810 16006</span>
-            </div>
+  {/* Phone */}
+  <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
+    <span>+91 91416 21820</span>
+    <span></span> {/* Remove hidden class */}
+    <span>+91 94810 16006</span> {/* Remove hidden class */}
+  </div>
 
-            {/* Email */}
-            <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
-              <span>info@ayyapanglass.com</span>
-              <span className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">•</span>
-              <span>sriayyapanglassandplaywoods@gmail.com</span>
-            </div>
-          </div>
+  {/* Email */}
+  <div className="flex flex-wrap items-center gap-2 font-bold text-base md:text-lg">
+    <span>info@ayyapanglass.com</span>
+    <span className="hidden sm:inline">|</span>
+    <span>sriyyapanglassandplaywoods@gmail.com</span>
+  </div>
+</div>
 
           {/* Social Icons */}
           <div className="flex gap-3 justify-start md:justify-end">
@@ -221,11 +221,10 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-3 md:space-x-4">
             <Link
-  to="/"
-  onClick={() => forceScrollTop("/")}
-  className="flex items-center space-x-3 md:space-x-4 cursor-pointer"
->
-
+              to="/"
+              onClick={() => forceScrollTop("/")}
+              className="flex items-center space-x-3 md:space-x-4 cursor-pointer"
+            >
               <img
                 src={logo}
                 alt="Sri Ayyappan Glass Logo"
@@ -282,22 +281,20 @@ const Header = () => {
                       <div className="bg-white rounded-xl border border-gray-100 p-2 overflow-hidden max-h-[60vh] overflow-y-auto">
                         {/* All Services Link */}
                         <Link
-  to="/services/:id"
-  onClick={() => forceScrollTop("/services")}
-  className="block px-3 md:px-4 py-2 md:py-3 text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg transition-colors uppercase border-b border-blue-100 mb-1"
->
-
+                          to="/services"
+                          onClick={() => forceScrollTop("/services")}
+                          className="block px-3 md:px-4 py-2 md:py-3 text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg transition-colors uppercase border-b border-blue-100 mb-1"
+                        >
                           View All Services
                         </Link>
 
                         {item.dropdown.map((sub) => (
-                         <Link
-  key={sub.name}
-  to={sub.href}
-  onClick={() => forceScrollTop(sub.href)}
-  className="block px-3 md:px-4 py-2 md:py-3 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors uppercase border-b border-gray-100 last:border-0"
->
-
+                          <Link
+                            key={sub.name}
+                            to={sub.href}
+                            onClick={() => forceScrollTop(sub.href)}
+                            className="block px-3 md:px-4 py-2 md:py-3 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors uppercase border-b border-gray-100 last:border-0"
+                          >
                             {sub.name}
                           </Link>
                         ))}
@@ -306,22 +303,20 @@ const Header = () => {
                   </>
                 ) : (
                   <Link
-  to={item.href}
-  onClick={() => forceScrollTop(item.href)}
-  className="px-3 md:px-4 py-2 text-xs md:text-sm font-bold text-gray-800 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wider transition-colors"
->
-
+                    to={item.href}
+                    onClick={() => forceScrollTop(item.href)}
+                    className="px-3 md:px-4 py-2 text-xs md:text-sm font-bold text-gray-800 hover:text-blue-700 flex items-center gap-1 uppercase tracking-wider transition-colors"
+                  >
                     {item.name}
                   </Link>
                 )}
               </div>
             ))}
-           <Link
-  to="/contact"
-  onClick={() => forceScrollTop("/contact")}
-  className="ml-2 md:ml-4 bg-gradient-to-r from-blue-900 to-amber-600 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-900/20 hover:shadow-xl transition-shadow"
->
-
+            <Link
+              to="/contact"
+              onClick={() => forceScrollTop("/contact")}
+              className="ml-2 md:ml-4 bg-gradient-to-r from-blue-900 to-amber-600 text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-900/20 hover:shadow-xl transition-shadow"
+            >
               Get Quote
             </Link>
           </nav>
@@ -374,23 +369,22 @@ const Header = () => {
                         >
                           {/* All Services Link */}
                           <Link
-  to="/services/:id"
-  className="block py-2 px-2 text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-md uppercase mb-1"
-  onClick={() => {
-    forceScrollTop("/services");
-    setIsMenuOpen(false);
-    setActiveMobileDropdown(null);
-  }}
->
-
+                            to="/services"
+                            className="block py-2 px-2 text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-md uppercase mb-1"
+                            onClick={() => {
+                              forceScrollTop("/services");
+                              setIsMenuOpen(false);
+                              setActiveMobileDropdown(null);
+                            }}
+                          >
                             View All Services
                           </Link>
 
                           {item.dropdown.map((sub) => (
                             <Link
-  key={sub.name}
-  to={sub.href}
-  className="
+                              key={sub.name}
+                              to={sub.href}
+                              className="
     block py-2 px-2
     text-xs font-semibold
     text-gray-700
@@ -399,13 +393,12 @@ const Header = () => {
     rounded-md
     uppercase
   "
-  onClick={() => {
-    forceScrollTop(sub.href);
-    setIsMenuOpen(false);
-    setActiveMobileDropdown(null);
-  }}
->
-
+                              onClick={() => {
+                                forceScrollTop(sub.href);
+                                setIsMenuOpen(false);
+                                setActiveMobileDropdown(null);
+                              }}
+                            >
                               {sub.name}
                             </Link>
                           ))}
@@ -414,14 +407,13 @@ const Header = () => {
                     </>
                   ) : (
                     <Link
-  to={item.href}
-  className="block py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
-  onClick={() => {
-    forceScrollTop(item.href);
-    setIsMenuOpen(false);
-  }}
->
-
+                      to={item.href}
+                      className="block py-3 text-sm font-bold text-gray-800 uppercase border-b border-gray-100"
+                      onClick={() => {
+                        forceScrollTop(item.href);
+                        setIsMenuOpen(false);
+                      }}
+                    >
                       {item.name}
                     </Link>
                   )}
@@ -442,15 +434,14 @@ const Header = () => {
                   ))}
                 </div>
 
-               <Link
-  to="/contact"
-  className="block w-full bg-gradient-to-r from-blue-900 to-amber-600 text-white text-center py-3 rounded-full text-sm font-black uppercase tracking-widest shadow-lg"
-  onClick={() => {
-    forceScrollTop("/contact");
-    setIsMenuOpen(false);
-  }}
->
-
+                <Link
+                  to="/contact"
+                  className="block w-full bg-gradient-to-r from-blue-900 to-amber-600 text-white text-center py-3 rounded-full text-sm font-black uppercase tracking-widest shadow-lg"
+                  onClick={() => {
+                    forceScrollTop("/contact");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   Get Free Quote
                 </Link>
 
@@ -464,6 +455,9 @@ const Header = () => {
                   </div>
                   <div className="text-xs text-gray-600">
                     info@ayyapanglass.com
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    sriayyapanglassandplaywoods@gmail.com
                   </div>
                 </div>
               </div>
