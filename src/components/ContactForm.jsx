@@ -34,17 +34,14 @@ const ContactForm = () => {
     {
       icon: <Phone className="w-6 h-6 md:w-8 md:h-8" />,
       title: "PHONE",
-      main: "+91 91416 21820 ",
+      main: "+91 91416 21820",
       sub: "+91 94810 16006",
       color: "text-blue-600"
     },
     {
       icon: <Mail className="w-6 h-6 md:w-8 md:h-8" />,
       title: "EMAIL",
-      main: [
-         
-        "info@sriayyapanglass.com"
-      ],
+      main: "info@sriayyapanglass.com",
       sub: "Available 24/7",
       color: "text-blue-600"
     },
@@ -118,9 +115,9 @@ const ContactForm = () => {
         /* 🏴‍☠️ MAIN BACKGROUND – Dark Blue */
         .dark-blue-bg {
           background: linear-gradient(135deg, 
-            rgba(12, 25, 74, 1) 0%,      /* very dark blue */
-            rgba(15, 30, 90, 1) 50%,     /* dark blue */
-            rgba(20, 40, 110, 1) 100%    /* medium dark blue */
+            rgba(12, 25, 74, 1) 0%,
+            rgba(15, 30, 90, 1) 50%,
+            rgba(20, 40, 110, 1) 100%
           );
         }
 
@@ -130,7 +127,6 @@ const ContactForm = () => {
           border: 1px solid #dbeafe;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
-          color: #1e40af;
         }
 
         @media (min-width: 768px) {
@@ -148,7 +144,7 @@ const ContactForm = () => {
         /* 🦸 HERO OVERLAY */
         .hero-gradient {
           background: linear-gradient(135deg, 
-            rgba(12, 25, 74, 0.85) 0%,    /* dark blue overlay */
+            rgba(12, 25, 74, 0.85) 0%,
             rgba(12, 25, 74, 0.6) 50%,
             rgba(12, 25, 74, 0.4) 100%
           );
@@ -160,6 +156,7 @@ const ContactForm = () => {
           border: 1px solid #dbeafe;
           color: #1e40af;
           transition: all 0.25s ease;
+          font-size: 14px;
         }
 
         .form-input:focus {
@@ -179,6 +176,7 @@ const ContactForm = () => {
           color: white;
           border: 2px solid #3b82f6;
           transition: all 0.25s ease;
+          font-size: 14px;
         }
 
         .submit-button:hover {
@@ -199,31 +197,6 @@ const ContactForm = () => {
           }
         }
 
-        .contact-info-title {
-          color: #64748b;
-        }
-
-        .contact-info-main {
-          color: #1e40af;
-        }
-
-        .contact-info-sub {
-          color: #64748b;
-        }
-
-        /* 🎖️ BENEFITS SECTION */
-        .benefit-icon {
-          color: #3b82f6;
-        }
-
-        .benefit-title {
-          color: #1e40af;
-        }
-
-        .benefit-desc {
-          color: #64748b;
-        }
-
         /* 📸 GALLERY CONTAINER */
         .gallery-container {
           background: white;
@@ -239,15 +212,6 @@ const ContactForm = () => {
           }
         }
 
-        /* 📈 STATS SECTION */
-        .stats-value {
-          color: white;
-        }
-
-        .stats-label {
-          color: rgba(255, 255, 255, 0.8);
-        }
-
         /* 🎯 SUCCESS MESSAGE */
         .success-card {
           background: white;
@@ -261,29 +225,9 @@ const ContactForm = () => {
           }
         }
 
-        .success-icon {
-          color: #10b981;
-        }
-
-        .success-title {
-          color: #1e40af;
-        }
-
-        .success-text {
-          color: #64748b;
-        }
-
         /* 📱 FOOTER */
         .footer-container {
           border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-main {
-          color: white;
-        }
-
-        .footer-sub {
-          color: rgba(255, 255, 255, 0.7);
         }
       `}</style>
 
@@ -330,26 +274,16 @@ const ContactForm = () => {
                   </p>
 
                   {/* MAIN VALUE */}
-                  {Array.isArray(info.main) ? (
-                    <div className="space-y-1 sm:space-y-2">
-                      {info.main.map((value, i) => (
-                        <p
-                          key={i}
-                          className="contact-info-main text-sm sm:text-base md:text-lg lg:text-xl font-bold break-words"
-                        >
-                          {value}
-                        </p>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="contact-info-main text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 break-words">
-                      {info.main}
+                  <p className="text-blue-800 text-sm sm:text-sm font-bold mb-1 break-words">
+                    {info.main}
+                  </p>
+
+                  {/* SUB VALUE */}
+                  {info.sub && (
+                    <p className="text-blue-800 text-sm sm:text-sm font-bold break-words">
+                      {info.sub}
                     </p>
                   )}
-
-                  <p className="contact-info-main text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 break-words">
-                    {info.sub}
-                  </p>
                 </div>
               ))}
             </div>
@@ -360,21 +294,21 @@ const ContactForm = () => {
                 {submitted ? (
                   <div className="success-card text-center py-8 sm:py-10 md:py-12 rounded-xl sm:rounded-2xl">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-6 sm:mb-8">
-                      <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 success-icon" />
+                      <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-green-500" />
                     </div>
-                    <h3 className="success-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                    <h3 className="text-blue-800 text-2xl sm:text-2xl md:text-2xl font-bold mb-3 sm:mb-4">
                       THANK YOU!
                     </h3>
-                    <p className="success-text text-base sm:text-lg md:text-xl mb-2">
+                    <p className="text-blue-800 text-base sm:text-base md:text-base mb-2">
                       We've received your message
                     </p>
-                    <p className="success-text text-sm sm:text-base md:text-lg">
+                    <p className="text-blue-800 text-sm sm:text-sm md:text-sm">
                       Our team will contact you within 30 minutes
                     </p>
                   </div>
                 ) : (
                   <>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-blue-800 mb-6 sm:mb-8 md:mb-10">
+                    <h3 className="text-blue-800 text-2xl sm:text-2xl md:text-2xl font-bold mb-6 sm:mb-8 md:mb-10">
                       SEND MESSAGE
                     </h3>
                     
@@ -388,7 +322,7 @@ const ContactForm = () => {
                             onChange={handleChange}
                             placeholder="YOUR NAME"
                             required
-                            className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider text-sm sm:text-base font-medium"
+                            className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider font-bold"
                           />
                         </div>
                         <div>
@@ -399,7 +333,7 @@ const ContactForm = () => {
                             onChange={handleChange}
                             placeholder="PHONE NUMBER"
                             required
-                            className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider text-sm sm:text-base font-medium"
+                            className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider font-bold"
                           />
                         </div>
                       </div>
@@ -412,7 +346,7 @@ const ContactForm = () => {
                           onChange={handleChange}
                           placeholder="EMAIL ADDRESS"
                           required
-                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider text-sm sm:text-base font-medium"
+                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider font-bold"
                         />
                       </div>
 
@@ -422,11 +356,11 @@ const ContactForm = () => {
                           value={formData.service}
                           onChange={handleChange}
                           required
-                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none uppercase tracking-wider text-sm sm:text-base font-medium"
+                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none uppercase tracking-wider font-bold text-blue-800"
                         >
                           <option value="" className="bg-white text-gray-500">SELECT SERVICE</option>
                           {services.map((service, idx) => (
-                            <option key={idx} value={service} className="bg-white text-blue-800 uppercase font-medium">
+                            <option key={idx} value={service} className="bg-white text-blue-800 uppercase font-bold">
                               {service}
                             </option>
                           ))}
@@ -441,13 +375,13 @@ const ContactForm = () => {
                           placeholder="PROJECT DETAILS / MESSAGE"
                           rows="4"
                           required
-                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider text-sm sm:text-base font-medium"
+                          className="form-input w-full p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-xl focus:outline-none placeholder-gray-500 uppercase tracking-wider font-bold"
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="submit-button w-full py-3 sm:py-4 md:py-5 rounded-lg sm:rounded-xl font-bold text-base sm:text-lg md:text-xl flex items-center justify-center gap-2 sm:gap-3"
+                        className="submit-button w-full py-3 sm:py-4 md:py-5 rounded-lg sm:rounded-xl font-bold flex items-center justify-center gap-2 sm:gap-3"
                       >
                         <Send className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                         SEND MESSAGE
@@ -461,20 +395,20 @@ const ContactForm = () => {
               <div className="space-y-8 sm:space-y-10 md:space-y-12">
                 {/* Benefits */}
                 <div className="white-card p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-blue-800 mb-6 sm:mb-8 md:mb-10">
+                  <h3 className="text-blue-800 text-2xl sm:text-2xl md:text-2xl font-bold mb-6 sm:mb-8 md:mb-10">
                     WHY CHOOSE US
                   </h3>
                   <div className="space-y-6 sm:space-y-8">
                     {benefits.map((benefit, index) => (
                       <div key={index} className="flex items-start gap-4 sm:gap-6">
-                        <div className="benefit-icon mt-0.5 sm:mt-1">
+                        <div className="text-blue-800 mt-0.5 sm:mt-1">
                           {benefit.icon}
                         </div>
                         <div>
-                          <h4 className="benefit-title text-base sm:text-lg md:text-xl font-bold mb-1">
+                          <h4 className="text-blue-800 text-sm sm:text-sm md:text-sm font-bold mb-1">
                             {benefit.title}
                           </h4>
-                          <p className="benefit-desc text-sm sm:text-base">
+                          <p className="text-blue-800 text-sm sm:text-sm">
                             {benefit.desc}
                           </p>
                         </div>
@@ -485,7 +419,7 @@ const ContactForm = () => {
 
                 {/* Gallery Preview */}
                 <div className="white-card p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl sm:rounded-2xl">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-blue-800 mb-6 sm:mb-8 md:mb-10">
+                  <h3 className="text-blue-800 text-2xl sm:text-2xl md:text-2xl font-bold mb-6 sm:mb-8 md:mb-10">
                     OUR WORK
                   </h3>
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
@@ -512,7 +446,7 @@ const ContactForm = () => {
                     </div>
                     <Link to="/our-works">
                       <div className="gallery-container aspect-square bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center cursor-pointer hover:scale-105 transition">
-                        <p className="text-blue-600 text-sm sm:text-base md:text-lg font-medium">
+                        <p className="text-blue-800 text-sm sm:text-sm md:text-sm font-bold">
                           VIEW MORE
                         </p>
                       </div>
@@ -525,20 +459,20 @@ const ContactForm = () => {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-12 sm:mt-16 md:mt-20 lg:mt-24">
               <div className="text-center">
-                <div className="stats-value text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-2">25+</div>
-                <p className="stats-label uppercase tracking-wider text-xs sm:text-sm">YEARS</p>
+                <div className="text-white text-3xl sm:text-3xl md:text-3xl lg:text-3xl font-bold mb-1 sm:mb-2">25+</div>
+                <p className="text-white uppercase tracking-wider text-xs sm:text-xs">YEARS</p>
               </div>
               <div className="text-center">
-                <div className="stats-value text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-2">850+</div>
-                <p className="stats-label uppercase tracking-wider text-xs sm:text-sm">PROJECTS</p>
+                <div className="text-white text-3xl sm:text-3xl md:text-3xl lg:text-3xl font-bold mb-1 sm:mb-2">850+</div>
+                <p className="text-white uppercase tracking-wider text-xs sm:text-xs">PROJECTS</p>
               </div>
               <div className="text-center">
-                <div className="stats-value text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-2">99%</div>
-                <p className="stats-label uppercase tracking-wider text-xs sm:text-sm">CLIENTS</p>
+                <div className="text-white text-3xl sm:text-3xl md:text-3xl lg:text-3xl font-bold mb-1 sm:mb-2">99%</div>
+                <p className="text-white uppercase tracking-wider text-xs sm:text-xs">CLIENTS</p>
               </div>
               <div className="text-center">
-                <div className="stats-value text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-2">24/7</div>
-                <p className="stats-label uppercase tracking-wider text-xs sm:text-sm">SUPPORT</p>
+                <div className="text-white text-3xl sm:text-3xl md:text-3xl lg:text-3xl font-bold mb-1 sm:mb-2">24/7</div>
+                <p className="text-white uppercase tracking-wider text-xs sm:text-xs">SUPPORT</p>
               </div>
             </div>
           </div>
@@ -546,8 +480,8 @@ const ContactForm = () => {
 
         {/* Footer */}
         <div className="footer-container py-6 sm:py-8 md:py-10 lg:py-12 px-4 text-center">
-          <p className="footer-main text-lg sm:text-xl md:text-2xl lg:text-3xl mb-2 font-medium">SRI AYYAPPAN GLASS</p>
-          <p className="footer-sub text-sm sm:text-base">BANGALORE • SINCE 2017</p>
+          <p className="text-white text-sm sm:text-sm md:text-sm lg:text-sm mb-2 font-bold">SRI AYYAPPAN GLASS</p>
+          <p className="text-white text-xs sm:text-xs">BANGALORE • SINCE 2017</p>
         </div>
       </div>
     </>

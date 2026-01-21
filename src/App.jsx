@@ -18,7 +18,7 @@ import ShowerEnclosures from './components/ShowerEnclosures.jsx';
 import ToughenedGlass from './components/ToughenedGlass.jsx';
 import GlassInstallation from './components/GlassInstallation.jsx';
 import ShowerDoors from './components/ShowerDoors.jsx';
-import AluminiumGlassPartition from './components/AluminiumGlassPartition.jsx';
+ 
 import GlassPartitionWithDoor from './components/GlassPartitionWithDoor.jsx';
 import GlassPartitionCompany from './components/GlassPartitionCompany.jsx';
 import LEDSmartMirrors from './components/LEDSmartMirrors';
@@ -71,7 +71,7 @@ function App() {
             <Route path="/services/shower-doors" element={<ShowerDoors />} />
             
             {/* Second row from screenshot */}
-            <Route path="/services/aluminium-glass-partition" element={<AluminiumGlassPartition />} />
+           
             <Route path="/services/glass-partition-with-door" element={<GlassPartitionWithDoor />} />
             <Route path="/services/glass-partition-company" element={<GlassPartitionCompany />} />
             <Route path="/services/glass-partition-price-cost" element={<GlassPartitionPriceCost />} />

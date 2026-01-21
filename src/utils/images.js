@@ -88,11 +88,7 @@ import install4 from "../assets/img/Glass-Installation/Glass-installation-4.jpg"
 import install5 from "../assets/img/Glass-Installation/Glass-installation-5.jpg";
 
 // ================= ALUMINIUM GLASS PARTITION =================
-import aluminiumglass1 from "../assets/img/Aluminium-Glass-Partiotion/Aluminium-glass-partition-1.jpg";
-import aluminiumglass2 from "../assets/img/Aluminium-Glass-Partiotion/Aluminium-glass-partition-2.jpg";
-import aluminiumglass3 from "../assets/img/Aluminium-Glass-Partiotion/Aluminium-glass-partition-3.jpg";
-import aluminiumglass4 from "../assets/img/Aluminium-Glass-Partiotion/Aluminium-glass-partition-4.jpg";
-import aluminiumglass5 from "../assets/img/Aluminium-Glass-Partiotion/Aluminium-glass-partition-5.jpg";
+ 
 
 // ================= GLASS PARTITION WITH DOOR =================
 import Glasspartitionwithdoor1 from "../assets/img/Glass-Partion-with-door/Glass-Partition-with-door-1.jpg";
@@ -181,7 +177,7 @@ export const images = {
   ledSmartMirror: [led1, led2, led3, led4, led5, led6, led7, led8, led9, led10, led11],
   
   // Partitions
-  aluminiumGlassPartition: [aluminiumglass1, aluminiumglass2, aluminiumglass3, aluminiumglass4, aluminiumglass5],
+   
   glassPartitionWithDoor: [Glasspartitionwithdoor1, Glasspartitionwithdoor2, Glasspartitionwithdoor3, Glasspartitionwithdoor4, Glasspartitionwithdoor5],
   glassPartitionCompany: [Glasspartitioncompany1, Glasspartitioncompany2, Glasspartitioncompany3, Glasspartitioncompany4, Glasspartitioncompany5],
   glassPartitionPriceCost: [Glasspartitionpricecost1, Glasspartitionpricecost2, Glasspartitionpricecost3, Glasspartitionpricecost4, Glasspartitionpricecost5],
@@ -217,7 +213,7 @@ export const imageCategories = {
   allBalcony: images.balconyGlass,
   allInstallation: images.glassInstallation,
   allPartitions: [
-    ...images.aluminiumGlassPartition,
+     
     ...images.glassPartitionWithDoor,
     ...images.wallGlassPartition
   ],

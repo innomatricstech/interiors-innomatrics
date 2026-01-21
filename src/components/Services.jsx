@@ -106,16 +106,7 @@ const Services = () => {
       color: "from-slate-600 to-gray-500",
       stats: { projects: 65, years: 9, rating: 4.7 }
     },
-    { 
-      id: 10, 
-      title: "Aluminium Partition", 
-      path: "/services/aluminium-glass-partition",
-      category: "PARTITIONS", 
-      icon: <Layers size={24} />,
-      image: images.aluminiumGlassPartition[0],
-      color: "from-indigo-600 to-blue-400",
-      stats: { projects: 195, years: 8, rating: 4.8 }
-    },
+     
     { 
       id: 11, 
       title: "Partition with Door", 

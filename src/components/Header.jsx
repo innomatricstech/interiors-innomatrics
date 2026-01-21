@@ -25,10 +25,7 @@ const Header = () => {
      
     { name: "Glass Installation", href: "/services/glass-installation" },
     { name: "Shower Doors", href: "/services/shower-doors" },
-    {
-      name: "Aluminium Glass Partition",
-      href: "/services/aluminium-glass-partition",
-    },
+     
     {
       name: "Glass Partition with Door",
       href: "/services/glass-partition-with-door",
